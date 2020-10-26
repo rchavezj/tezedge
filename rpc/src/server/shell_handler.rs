@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 use bytes::buf::BufExt;
-use hyper::{Body, Request};
+use hyper::{Body, Method, Request};
 use serde::Serialize;
 
 use crypto::hash::HashType;
@@ -261,6 +261,61 @@ pub async fn preapply_block(req: Request<Body>, params: Params, _: Query, env: R
 pub async fn node_version(_: Request<Body>, _: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
     result_to_json_response(
         base_services::get_node_version(env.network_version()),
+        env.log(),
+    )
+}
+
+// TODO: remove. This is a 'fake it till you make it' handler
+// Handler faking the describe routes in ocaml to be compatible with tezoses python test framework
+pub async fn describe(req: Request<Body>, _: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
+    let method = req.method();
+    let path: Vec<String> = req.uri().path().split("/").skip(2).map(|v| v.to_string()).collect();
+
+    let service_fields = serde_json::json!({
+        "meth": method.as_str(),
+        "path": path,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "query": [],
+        "output": {
+            "json_schema": {},
+            "binary_schema": {
+                "toplevel": {
+                    "fields": [],
+                },
+                "fields": [],
+            },
+        },
+        "error": {
+            "json_schema": {},
+            "binary_schema": {
+                "toplevel": {
+                    "fields": [],
+                },
+                "fields": [],
+            },
+        },
+    });
+
+    let describe_json = match method {
+        &Method::GET => {
+            serde_json::json!({
+                "static": {
+                    "get_service": service_fields
+                },
+            })
+        }
+        &Method::POST => {
+            serde_json::json!({
+                "static": {
+                    "post_service": service_fields
+                },
+            })
+        }
+        _ => unimplemented!()
+    };
+
+    result_to_json_response(
+        Ok(describe_json),
         env.log(),
     )
 }
