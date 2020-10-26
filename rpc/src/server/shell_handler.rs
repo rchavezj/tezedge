@@ -267,8 +267,8 @@ pub async fn node_version(_: Request<Body>, _: Params, _: Query, env: RpcService
 
 // TODO: remove. This is a 'fake it till you make it' handler
 // Handler faking the describe routes in ocaml to be compatible with tezoses python test framework
-pub async fn describe(req: Request<Body>, _: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
-    let method = req.method();
+pub async fn describe(method: Method, req: Request<Body>, _: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
+    //let method = req.method();
     let path: Vec<String> = req.uri().path().split("/").skip(2).map(|v| v.to_string()).collect();
 
     let service_fields = serde_json::json!({
@@ -297,14 +297,14 @@ pub async fn describe(req: Request<Body>, _: Params, _: Query, env: RpcServiceEn
     });
 
     let describe_json = match method {
-        &Method::GET => {
+        Method::GET => {
             serde_json::json!({
                 "static": {
                     "get_service": service_fields
                 },
             })
         }
-        &Method::POST => {
+        Method::POST => {
             serde_json::json!({
                 "static": {
                     "post_service": service_fields
