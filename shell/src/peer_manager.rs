@@ -303,6 +303,13 @@ impl Actor for PeerManager {
         });
     }
 
+    fn post_start(&mut self, ctx: &Context<Self::Msg>) {
+        if !self.initial_peers.is_empty() {
+            info!(ctx.system.log(), "Connecting to defined peers");
+            self.initial_peers.drain().for_each(|address| ctx.myself().tell(ConnectToPeer { address: address.clone() }, ctx.myself().into()));
+        }
+    }
+
     fn post_stop(&mut self) {
         self.rx_run.store(false, Ordering::Relaxed);
     }
