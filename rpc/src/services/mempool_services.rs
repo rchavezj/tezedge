@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
 use std::time::{Duration, SystemTime};
 
-use failure::format_err;
+use failure::{bail, format_err};
 use riker::actors::*;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -137,10 +137,15 @@ pub fn inject_operation(
     let block_meta_storage: Box<dyn BlockMetaStorageReader> = Box::new(BlockMetaStorage::new(persistent_storage));
     let state = env.state();
 
+    let state = state.read().unwrap();
+
+    if state.disable_mempool() {
+        bail!("Cannot inject operation, mempool is disabled")
+    }
+
     // parse operation data
     let operation: Operation = Operation::from_bytes(hex::decode(operation_data)?)?;
     let operation_hash = operation.message_hash()?;
-    let state = state.read().unwrap();
 
     // do prevalidation before add the operation to mempool
     let result = validation::prevalidate_operation(

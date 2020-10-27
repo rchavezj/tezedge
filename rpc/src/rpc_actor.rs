@@ -42,6 +42,8 @@ pub struct RpcCollectedState {
     head_update_time: TimeStamp,
     #[get_copy = "pub(crate)"]
     is_sandbox: bool,
+    #[get_copy = "pub(crate)"]
+    disable_mempool: bool,
 }
 
 /// Actor responsible for managing HTTP REST API and server, and to share parts of inner actor
@@ -68,13 +70,15 @@ impl RpcServer {
         tezos_env: TezosEnvironmentConfiguration,
         network_version: NetworkVersion,
         init_storage_data: &StorageInitInfo,
-        is_sandbox: bool) -> Result<RpcServerRef, CreateError> {
+        is_sandbox: bool,
+        disable_mempool: bool) -> Result<RpcServerRef, CreateError> {
         let shared_state = Arc::new(RwLock::new(RpcCollectedState {
             current_head: load_current_head(persistent_storage, &init_storage_data.chain_id, &sys.log()),
             chain_id: init_storage_data.chain_id.clone(),
             current_mempool_state: None,
             head_update_time: current_time_timestamp(),
             is_sandbox,
+            disable_mempool,
         }));
         let actor_ref = sys.actor_of_props::<RpcServer>(
             Self::name(),
