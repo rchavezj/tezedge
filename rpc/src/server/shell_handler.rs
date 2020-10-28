@@ -319,3 +319,10 @@ pub async fn describe(method: Method, req: Request<Body>, _: Params, _: Query, e
         env.log(),
     )
 }
+
+pub async fn worker_prevalidators(_: Request<Body>, _: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
+    result_to_json_response(
+        base_services::get_prevalidators(&env),
+        env.log(),
+    )
+}

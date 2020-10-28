@@ -1,10 +1,13 @@
 // Copyright (c) SimpleStaking and Tezedge Contributors
 // SPDX-License-Identifier: MIT
 
+use riker::actors::BasicActorRef;
 use std::convert::TryInto;
 
 use failure::bail;
 use slog::Logger;
+use riker::actor::ActorReference;
+use serde::Serialize;
 
 use crypto::hash::{chain_id_to_b58_string, HashType};
 use shell::shell_channel::BlockApplied;
@@ -174,6 +177,27 @@ pub(crate) fn live_blocks(_chain_param: &str, block_param: &str, env: &RpcServic
         .map(|blocks| blocks.iter().map(|b| HashType::BlockHash.bytes_to_string(&b)).collect());
 
     Ok(live_blocks)
+}
+
+#[derive(Serialize, Debug)]
+pub(crate) struct Prevalidators {
+    chain_id: String,
+    since: String,
+}
+
+// TODO: implement the json structure form ocaml's RPC 
+pub(crate) fn get_prevalidators(env: &RpcServiceEnvironment) -> Result<Vec<Prevalidators>, failure::Error> {
+    let chain_id = get_chain_id(env.state()).unwrap_or("".to_string());
+    
+    if env.sys().user_root().children().filter(|actor_ref| actor_ref.name() == "mempool-prevalidator").collect::<Vec<BasicActorRef>>().is_empty() {
+        Ok(vec![])
+    } else {
+        Ok(vec![Prevalidators {
+            chain_id,
+            since: env.sys().start_date().to_rfc3339(),
+        }])
+    }
+
 }
 
 /// Get protocol context constants from context list

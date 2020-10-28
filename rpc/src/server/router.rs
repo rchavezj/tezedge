@@ -31,6 +31,7 @@ pub(crate) fn create_routes(is_sandbox: bool) -> PathTree<Handler> {
     routes.handle(Method::GET, "/chains/:chain_id/blocks/:block_id/hash", shell_handler::get_block_hash);
     routes.handle(Method::GET, "/chains/:chain_id/blocks/:block_id/operation_hashes", shell_handler::get_block_operation_hashes);
     routes.handle(Method::POST, "/injection/operation", shell_handler::inject_operation);
+    routes.handle(Method::GET, "/workers/prevalidators", shell_handler::worker_prevalidators);
     // TODO: TE-174: just for sandbox
     if is_sandbox {
         routes.handle(Method::POST, "/injection/block", shell_handler::inject_block);
