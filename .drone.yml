@@ -29,6 +29,8 @@ steps:
       path: /artifacts
     - name: sandbox-data
       path: /tmp/sandbox
+    - name: tezos-src
+      path: /tmp/tezos-src
   commands:
     - rm -rf /tmp/sandbox/light-node
     - rm -rf /tmp/sandbox/tezos-node
@@ -94,9 +96,9 @@ volumes:
   - name: build
     host:
       path: /etc/tezedge-ci-build/
-  - name: sandbox-data
+  - name: tezos-src
     host:
-      path: /etc/tezedge-ci-data/sandbox
+      path: /etc/tezos-src
 
 trigger:
   branch:
