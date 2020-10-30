@@ -56,3 +56,22 @@ pub(crate) fn get_contract_manager_key(context_proto_params: ContextProtocolPara
         Ok(None)
     }
 }
+
+pub(crate) fn get_contract_balance(context_proto_params: ContextProtocolParam, pkh: &str, context: TezedgeContext) -> Result<Option<String>, failure::Error> {
+
+    // level of the block
+    let level = context_proto_params.level;
+
+    // get context_hash from level
+    let ctx_hash = context.level_to_hash(level.try_into()?)?;
+    
+    let indexed_contract_key = construct_indexed_contract_key(pkh)?;
+
+    let balance_key = vec![indexed_contract_key.clone(), "balance".to_string()];
+    if let Some(Bucket::Exists(data)) = context.get_key_from_history(&ctx_hash, &balance_key)? {
+        let balance = tezos_messages::protocol::proto_006::contract::Balance::from_bytes(data)?;
+        Ok(Some(balance.to_string()))
+    } else {
+        Ok(Some("0".to_string()))
+    }
+}

@@ -101,6 +101,17 @@ pub async fn get_contract_manager_key(_: Request<Body>, params: Params, _: Query
     )
 }
 
+pub async fn get_contract_balance(_: Request<Body>, params: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
+    let _chain_id = params.get_str("chain_id").unwrap();
+    let block_id = params.get_str("block_id").unwrap();
+    let pkh = params.get_str("pkh").unwrap();
+
+    result_to_json_response(
+        services::protocol::proto_get_contract_balance(_chain_id, block_id, pkh, env.persistent_storage(), env.persistent_storage(), env.state()),
+        env.log(),
+    )
+}
+
 pub async fn run_operation(req: Request<Body>, params: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
     let chain_param = params.get_str("chain_id").unwrap();
     let block_param = params.get_str("block_id").unwrap();

@@ -30,3 +30,22 @@ has_encoding!(Counter, COUNTER_ENCODING, {
             Field::new("counter", Encoding::Z)
         ])
 });
+
+#[derive(Serialize, Deserialize, Debug, Clone, Getters)]
+pub struct Balance {
+    #[get = "pub"]
+    balance: BigInt,
+}
+
+impl Balance {
+    pub fn to_string(&self) -> String {
+        self.balance.0.to_str_radix(10)
+    }
+}
+
+non_cached_data!(Balance);
+has_encoding!(Balance, BALANCE_ENCODING, {
+    Encoding::Obj(vec![
+        Field::new("balance", Encoding::Mutez)
+    ])
+});
