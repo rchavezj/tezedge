@@ -107,7 +107,7 @@ pub async fn get_contract_balance(_: Request<Body>, params: Params, _: Query, en
     let pkh = params.get_str("pkh").unwrap();
 
     result_to_json_response(
-        services::protocol::proto_get_contract_balance(_chain_id, block_id, pkh, env.persistent_storage(), env.persistent_storage(), env.state()),
+        services::protocol::proto_get_contract_balance(_chain_id, block_id, pkh, env.persistent_storage(), env.state()),
         env.log(),
     )
 }

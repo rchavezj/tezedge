@@ -428,7 +428,6 @@ pub(crate) fn proto_get_contract_balance(
     _chain_id: &str,
     block_id: &str,
     pkh: &str,
-    context_list: ContextList,
     persistent_storage: &PersistentStorage,
     state: &RpcCollectedStateRef) -> Result<Option<String>, failure::Error> {
 
@@ -436,12 +435,11 @@ pub(crate) fn proto_get_contract_balance(
     let context_proto_params = get_context_protocol_params(
         block_id,
         None,
-        context_list.clone(),
         persistent_storage,
         state,
     )?;
 
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), context_list.clone());
+    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
 
     // split impl by protocol
     let hash: &str = &HashType::ProtocolHash.bytes_to_string(&context_proto_params.protocol_hash);

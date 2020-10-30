@@ -4,8 +4,6 @@
 use std::convert::TryInto;
 use std::string::ToString;
 
-use failure::bail;
-
 use storage::context::{ContextApi, TezedgeContext};
 use storage::context_key;
 use tezos_messages::base::signature_public_key::SignaturePublicKey;
@@ -67,8 +65,7 @@ pub(crate) fn get_contract_balance(context_proto_params: ContextProtocolParam, p
     
     let indexed_contract_key = construct_indexed_contract_key(pkh)?;
 
-    let balance_key = vec![indexed_contract_key.clone(), "balance".to_string()];
-    if let Some(Bucket::Exists(data)) = context.get_key_from_history(&ctx_hash, &balance_key)? {
+    if let Some(data) = context.get_key_from_history(&ctx_hash, &context_key!("{}/{}", construct_indexed_contract_key(pkh)?, "balance"))? {
         let balance = tezos_messages::protocol::proto_006::contract::Balance::from_bytes(data)?;
         Ok(Some(balance.to_string()))
     } else {
