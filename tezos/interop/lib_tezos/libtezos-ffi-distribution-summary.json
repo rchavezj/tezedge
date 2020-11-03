@@ -1,353 +1,529 @@
 [
   {
-    "id": 97543,
-    "name": "tezos-client-macos.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/266d10f46f36d7b1bc14d7f68083e48e/tezos-client-macos.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/266d10f46f36d7b1bc14d7f68083e48e/tezos-client-macos.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97542,
-    "name": "tezos-client-macos",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/5faf362324beb325149208d2988b346a/tezos-client-macos",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/5faf362324beb325149208d2988b346a/tezos-client-macos",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97541,
-    "name": "libtezos-ffi-macos.dylib.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/7715a3063ba3f9327a6066527ed3b943/libtezos-ffi-macos.dylib.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/7715a3063ba3f9327a6066527ed3b943/libtezos-ffi-macos.dylib.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97540,
-    "name": "libtezos-ffi-macos.dylib",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/ade042771cc72cab2dab5cc391337d0b/libtezos-ffi-macos.dylib",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ade042771cc72cab2dab5cc391337d0b/libtezos-ffi-macos.dylib",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97539,
-    "name": "tezos-client-centos8.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/95cbfe93e673bc76c7d66ed595db1bad/tezos-client-centos8.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/95cbfe93e673bc76c7d66ed595db1bad/tezos-client-centos8.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97538,
-    "name": "tezos-client-centos8",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/13a4394123377d9fde115b6119d6c118/tezos-client-centos8",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/13a4394123377d9fde115b6119d6c118/tezos-client-centos8",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97537,
-    "name": "libtezos-ffi-centos8.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/09c11df1b2df847bb0b9b8b84028a1be/libtezos-ffi-centos8.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/09c11df1b2df847bb0b9b8b84028a1be/libtezos-ffi-centos8.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97536,
-    "name": "libtezos-ffi-centos8.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/2d6179fff2fb89170b403001b1a617ad/libtezos-ffi-centos8.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/2d6179fff2fb89170b403001b1a617ad/libtezos-ffi-centos8.so",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97535,
-    "name": "tezos-client-centos7.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/080f507e9af0b228105ca38bb85cc6ba/tezos-client-centos7.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/080f507e9af0b228105ca38bb85cc6ba/tezos-client-centos7.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97534,
-    "name": "tezos-client-centos7",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/db940e7816608ef4cca1c21d3cedde75/tezos-client-centos7",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/db940e7816608ef4cca1c21d3cedde75/tezos-client-centos7",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97533,
-    "name": "libtezos-ffi-centos7.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/e01a6bf8e3982c59399506225f9c6c35/libtezos-ffi-centos7.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e01a6bf8e3982c59399506225f9c6c35/libtezos-ffi-centos7.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97532,
+    "id": 99687,
     "name": "libtezos-ffi-centos7.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/979885db706c4dcdef4b6ecc86079276/libtezos-ffi-centos7.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/979885db706c4dcdef4b6ecc86079276/libtezos-ffi-centos7.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/3de7eb6b81b6776c8013438c6f18959a/libtezos-ffi-centos7.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/3de7eb6b81b6776c8013438c6f18959a/libtezos-ffi-centos7.so",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97531,
-    "name": "tezos-client-opensuse_tumbleweed.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/b0b06e16e40ad6e9ba299c31ad6bf17f/tezos-client-opensuse_tumbleweed.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/b0b06e16e40ad6e9ba299c31ad6bf17f/tezos-client-opensuse_tumbleweed.sha256",
+    "id": 99688,
+    "name": "libtezos-ffi-centos7.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/582b9bc9aa3d0c09629ddcb0a94ee137/libtezos-ffi-centos7.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/582b9bc9aa3d0c09629ddcb0a94ee137/libtezos-ffi-centos7.so.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97530,
-    "name": "tezos-client-opensuse_tumbleweed",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/b8ceb1aa09bbbe7b68ca2667a76aeba2/tezos-client-opensuse_tumbleweed",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/b8ceb1aa09bbbe7b68ca2667a76aeba2/tezos-client-opensuse_tumbleweed",
+    "id": 99693,
+    "name": "libtezos-ffi-centos8.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/7b9be13edf2faddcdc5a45dc7a69224e/libtezos-ffi-centos8.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/7b9be13edf2faddcdc5a45dc7a69224e/libtezos-ffi-centos8.so",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97529,
-    "name": "libtezos-ffi-opensuse_tumbleweed.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/39484b17540a219e26e49bdce2605f7d/libtezos-ffi-opensuse_tumbleweed.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/39484b17540a219e26e49bdce2605f7d/libtezos-ffi-opensuse_tumbleweed.so.sha256",
+    "id": 99694,
+    "name": "libtezos-ffi-centos8.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/60dfbb2f3716ba6b077e57a93462bfc5/libtezos-ffi-centos8.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/60dfbb2f3716ba6b077e57a93462bfc5/libtezos-ffi-centos8.so.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97528,
-    "name": "libtezos-ffi-opensuse_tumbleweed.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/00b8fcefa3703c203d0fdbfdf5f4df7b/libtezos-ffi-opensuse_tumbleweed.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/00b8fcefa3703c203d0fdbfdf5f4df7b/libtezos-ffi-opensuse_tumbleweed.so",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97527,
-    "name": "tezos-client-opensuse15.1.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/40c4782ef67c9372e329d8363b4fec06/tezos-client-opensuse15.1.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/40c4782ef67c9372e329d8363b4fec06/tezos-client-opensuse15.1.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97526,
-    "name": "tezos-client-opensuse15.1",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/00754101cca20367a70af54578f28a19/tezos-client-opensuse15.1",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/00754101cca20367a70af54578f28a19/tezos-client-opensuse15.1",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97525,
-    "name": "libtezos-ffi-opensuse15.1.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/1a5c9431f86b711f0af2510b45e4d92a/libtezos-ffi-opensuse15.1.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/1a5c9431f86b711f0af2510b45e4d92a/libtezos-ffi-opensuse15.1.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97524,
-    "name": "libtezos-ffi-opensuse15.1.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/ba3b03080d7cb23a5d421abe9e28070e/libtezos-ffi-opensuse15.1.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ba3b03080d7cb23a5d421abe9e28070e/libtezos-ffi-opensuse15.1.so",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97523,
-    "name": "tezos-client-debian10.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/9917158af379613ee3f83827044b363f/tezos-client-debian10.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/9917158af379613ee3f83827044b363f/tezos-client-debian10.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97522,
-    "name": "tezos-client-debian10",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/4331d601b93e1e14b4e25592ff40aa96/tezos-client-debian10",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/4331d601b93e1e14b4e25592ff40aa96/tezos-client-debian10",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97521,
-    "name": "libtezos-ffi-debian10.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/02ea850b86feb267068fd37930f65cc1/libtezos-ffi-debian10.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/02ea850b86feb267068fd37930f65cc1/libtezos-ffi-debian10.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97520,
+    "id": 99669,
     "name": "libtezos-ffi-debian10.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/fd91457ba476843bced65932ce69e7b8/libtezos-ffi-debian10.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/fd91457ba476843bced65932ce69e7b8/libtezos-ffi-debian10.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/1485b54b0abedd33877ac0d6b2bde66d/libtezos-ffi-debian10.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/1485b54b0abedd33877ac0d6b2bde66d/libtezos-ffi-debian10.so",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97519,
-    "name": "tezos-client-debian9.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/edcf540eb00a9fb1600a82c3613c3989/tezos-client-debian9.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/edcf540eb00a9fb1600a82c3613c3989/tezos-client-debian9.sha256",
+    "id": 99670,
+    "name": "libtezos-ffi-debian10.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/b7106fa20423326aa5fdb37760f0003b/libtezos-ffi-debian10.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/b7106fa20423326aa5fdb37760f0003b/libtezos-ffi-debian10.so.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97518,
-    "name": "tezos-client-debian9",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/a4b1914f5a4f4629c9556e6248cd08b4/tezos-client-debian9",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/a4b1914f5a4f4629c9556e6248cd08b4/tezos-client-debian9",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97517,
-    "name": "libtezos-ffi-debian9.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/2b0f851ff3a54b36a50cfeea50ae1088/libtezos-ffi-debian9.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/2b0f851ff3a54b36a50cfeea50ae1088/libtezos-ffi-debian9.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97516,
+    "id": 99663,
     "name": "libtezos-ffi-debian9.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/b9e9045815c6c19de016eeb99dbefe1e/libtezos-ffi-debian9.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/b9e9045815c6c19de016eeb99dbefe1e/libtezos-ffi-debian9.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/ae7bda0e1919f46c78965e4f8adf71ba/libtezos-ffi-debian9.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ae7bda0e1919f46c78965e4f8adf71ba/libtezos-ffi-debian9.so",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97515,
-    "name": "tezos-client-ubuntu20.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/ac7e4a67defe0946d08da49af22b715b/tezos-client-ubuntu20.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ac7e4a67defe0946d08da49af22b715b/tezos-client-ubuntu20.sha256",
+    "id": 99664,
+    "name": "libtezos-ffi-debian9.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/cacebf58fb543aaef40aafba9f33cee9/libtezos-ffi-debian9.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/cacebf58fb543aaef40aafba9f33cee9/libtezos-ffi-debian9.so.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97514,
-    "name": "tezos-client-ubuntu20",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/655d330a25e8480c2355444317d0969e/tezos-client-ubuntu20",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/655d330a25e8480c2355444317d0969e/tezos-client-ubuntu20",
+    "id": 99699,
+    "name": "libtezos-ffi-macos.dylib",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/f3237cc81fce4dfc3343b9607543cb50/libtezos-ffi-macos.dylib",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/f3237cc81fce4dfc3343b9607543cb50/libtezos-ffi-macos.dylib",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97513,
-    "name": "libtezos-ffi-ubuntu20.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/6f76e9f53a4f87944421419c2da273dd/libtezos-ffi-ubuntu20.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/6f76e9f53a4f87944421419c2da273dd/libtezos-ffi-ubuntu20.so.sha256",
+    "id": 99700,
+    "name": "libtezos-ffi-macos.dylib.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/9f6f60e86bfeacfe943b5fb20add1120/libtezos-ffi-macos.dylib.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/9f6f60e86bfeacfe943b5fb20add1120/libtezos-ffi-macos.dylib.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97512,
-    "name": "libtezos-ffi-ubuntu20.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/4d86bc58ddbb7381640dba780c075916/libtezos-ffi-ubuntu20.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/4d86bc58ddbb7381640dba780c075916/libtezos-ffi-ubuntu20.so",
+    "id": 99675,
+    "name": "libtezos-ffi-opensuse15.1.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/a71ae4602d2ab346d458fd3c90d436d1/libtezos-ffi-opensuse15.1.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/a71ae4602d2ab346d458fd3c90d436d1/libtezos-ffi-opensuse15.1.so",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97511,
-    "name": "tezos-client-ubuntu19.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/1a124206e04d4cb1ed23c18d505fe501/tezos-client-ubuntu19.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/1a124206e04d4cb1ed23c18d505fe501/tezos-client-ubuntu19.sha256",
+    "id": 99676,
+    "name": "libtezos-ffi-opensuse15.1.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/d76fbbdc489bec93ddf3e99e90caa923/libtezos-ffi-opensuse15.1.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/d76fbbdc489bec93ddf3e99e90caa923/libtezos-ffi-opensuse15.1.so.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97510,
-    "name": "tezos-client-ubuntu19",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/15b53d029a0ece771fb50a59d0e168d6/tezos-client-ubuntu19",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/15b53d029a0ece771fb50a59d0e168d6/tezos-client-ubuntu19",
+    "id": 99681,
+    "name": "libtezos-ffi-opensuse_tumbleweed.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/2d1009eb05abd52005654aada0b6810a/libtezos-ffi-opensuse_tumbleweed.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/2d1009eb05abd52005654aada0b6810a/libtezos-ffi-opensuse_tumbleweed.so",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97509,
-    "name": "libtezos-ffi-ubuntu19.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/7e50aa51b8ad65ede6fea1fa4255e7e7/libtezos-ffi-ubuntu19.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/7e50aa51b8ad65ede6fea1fa4255e7e7/libtezos-ffi-ubuntu19.so.sha256",
+    "id": 99682,
+    "name": "libtezos-ffi-opensuse_tumbleweed.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/b538c3c6caba107f88771c87a2e6d5cb/libtezos-ffi-opensuse_tumbleweed.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/b538c3c6caba107f88771c87a2e6d5cb/libtezos-ffi-opensuse_tumbleweed.so.sha256",
     "external": false,
     "link_type": "other"
   },
   {
-    "id": 97508,
-    "name": "libtezos-ffi-ubuntu19.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/114086aaca320a81d5067a25d773bae3/libtezos-ffi-ubuntu19.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/114086aaca320a81d5067a25d773bae3/libtezos-ffi-ubuntu19.so",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97507,
-    "name": "tezos-client-ubuntu18.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/329a4dc5f3011c519162d54302e9543a/tezos-client-ubuntu18.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/329a4dc5f3011c519162d54302e9543a/tezos-client-ubuntu18.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97506,
-    "name": "tezos-client-ubuntu18",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/dc042fae56d78df1568aa1e0309356f4/tezos-client-ubuntu18",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/dc042fae56d78df1568aa1e0309356f4/tezos-client-ubuntu18",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97505,
-    "name": "libtezos-ffi-ubuntu18.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/decbb868ba0c32fb8eaa9e6f99bb720f/libtezos-ffi-ubuntu18.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/decbb868ba0c32fb8eaa9e6f99bb720f/libtezos-ffi-ubuntu18.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97504,
-    "name": "libtezos-ffi-ubuntu18.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/cf3e9dcf3e3900f14e5c816a083d8ee0/libtezos-ffi-ubuntu18.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/cf3e9dcf3e3900f14e5c816a083d8ee0/libtezos-ffi-ubuntu18.so",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97503,
-    "name": "tezos-client-ubuntu16.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/e3bdcc215b58708aa5d67c6b2970eb4b/tezos-client-ubuntu16.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e3bdcc215b58708aa5d67c6b2970eb4b/tezos-client-ubuntu16.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97502,
-    "name": "tezos-client-ubuntu16",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/7d0470178f00b71396d9c304551d44fc/tezos-client-ubuntu16",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/7d0470178f00b71396d9c304551d44fc/tezos-client-ubuntu16",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97501,
-    "name": "libtezos-ffi-ubuntu16.so.sha256",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/7a27bb72ffa477212db2c47b1cd6c2da/libtezos-ffi-ubuntu16.so.sha256",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/7a27bb72ffa477212db2c47b1cd6c2da/libtezos-ffi-ubuntu16.so.sha256",
-    "external": false,
-    "link_type": "other"
-  },
-  {
-    "id": 97500,
+    "id": 99638,
     "name": "libtezos-ffi-ubuntu16.so",
-    "url": "https://gitlab.com/simplestaking/tezos/uploads/e94fb4b32d0725cce9388678da4120fa/libtezos-ffi-ubuntu16.so",
-    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e94fb4b32d0725cce9388678da4120fa/libtezos-ffi-ubuntu16.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/292c36b239c2da4cd409dd3d3f117687/libtezos-ffi-ubuntu16.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/292c36b239c2da4cd409dd3d3f117687/libtezos-ffi-ubuntu16.so",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99639,
+    "name": "libtezos-ffi-ubuntu16.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/b5963dc14a167df02496cb5962e2df24/libtezos-ffi-ubuntu16.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/b5963dc14a167df02496cb5962e2df24/libtezos-ffi-ubuntu16.so.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99644,
+    "name": "libtezos-ffi-ubuntu18.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/65aff75313b6b24b2622b0ae1f1cce24/libtezos-ffi-ubuntu18.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/65aff75313b6b24b2622b0ae1f1cce24/libtezos-ffi-ubuntu18.so",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99645,
+    "name": "libtezos-ffi-ubuntu18.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/e2eedcb872d9765507098993f7179936/libtezos-ffi-ubuntu18.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e2eedcb872d9765507098993f7179936/libtezos-ffi-ubuntu18.so.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99650,
+    "name": "libtezos-ffi-ubuntu19.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/adc9852116ff603837ca13c74b9771da/libtezos-ffi-ubuntu19.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/adc9852116ff603837ca13c74b9771da/libtezos-ffi-ubuntu19.so",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99651,
+    "name": "libtezos-ffi-ubuntu19.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/3b9a0ca4c93bc38766260dbf5a7aeb0c/libtezos-ffi-ubuntu19.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/3b9a0ca4c93bc38766260dbf5a7aeb0c/libtezos-ffi-ubuntu19.so.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99657,
+    "name": "libtezos-ffi-ubuntu20.so",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/bff7dcc0c69dc23f77b1406fbcc1c586/libtezos-ffi-ubuntu20.so",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/bff7dcc0c69dc23f77b1406fbcc1c586/libtezos-ffi-ubuntu20.so",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99658,
+    "name": "libtezos-ffi-ubuntu20.so.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/2e56c568eecb9717fb0a468964cab4b8/libtezos-ffi-ubuntu20.so.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/2e56c568eecb9717fb0a468964cab4b8/libtezos-ffi-ubuntu20.so.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99691,
+    "name": "tezos-admin-client-centos7",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/d379b22a4fec3b58439a565c87e79814/tezos-admin-client-centos7",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/d379b22a4fec3b58439a565c87e79814/tezos-admin-client-centos7",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99692,
+    "name": "tezos-admin-client-centos7.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/21edffb00524f6fb1480182d4f1449df/tezos-admin-client-centos7.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/21edffb00524f6fb1480182d4f1449df/tezos-admin-client-centos7.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99697,
+    "name": "tezos-admin-client-centos8",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/808337bb88c2afa8350e2b90667d9f89/tezos-admin-client-centos8",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/808337bb88c2afa8350e2b90667d9f89/tezos-admin-client-centos8",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99698,
+    "name": "tezos-admin-client-centos8.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/6b25f4efc8787b0280a0e1a8c6702f5f/tezos-admin-client-centos8.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/6b25f4efc8787b0280a0e1a8c6702f5f/tezos-admin-client-centos8.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99673,
+    "name": "tezos-admin-client-debian10",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/e130e4d7a8ac7b583d29106590849da5/tezos-admin-client-debian10",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e130e4d7a8ac7b583d29106590849da5/tezos-admin-client-debian10",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99674,
+    "name": "tezos-admin-client-debian10.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/3ac2faff39f6f49a2669b49e91857147/tezos-admin-client-debian10.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/3ac2faff39f6f49a2669b49e91857147/tezos-admin-client-debian10.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99667,
+    "name": "tezos-admin-client-debian9",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/539cbda5eaeff456d104abdf26ca85c0/tezos-admin-client-debian9",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/539cbda5eaeff456d104abdf26ca85c0/tezos-admin-client-debian9",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99668,
+    "name": "tezos-admin-client-debian9.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/721b38a7a43ca28a35c8aaa190833f10/tezos-admin-client-debian9.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/721b38a7a43ca28a35c8aaa190833f10/tezos-admin-client-debian9.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99703,
+    "name": "tezos-admin-client-macos",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/1449a0aa7a4c4cfc6f4465a10537f225/tezos-admin-client-macos",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/1449a0aa7a4c4cfc6f4465a10537f225/tezos-admin-client-macos",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99704,
+    "name": "tezos-admin-client-macos.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/c17abc925fb251ba05d095e2dda3384b/tezos-admin-client-macos.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/c17abc925fb251ba05d095e2dda3384b/tezos-admin-client-macos.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99679,
+    "name": "tezos-admin-client-opensuse15.1",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/c89082d91fcfc96e3103b1084310483c/tezos-admin-client-opensuse15.1",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/c89082d91fcfc96e3103b1084310483c/tezos-admin-client-opensuse15.1",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99680,
+    "name": "tezos-admin-client-opensuse15.1.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/cc695439c53fe5b852d7c8c77e9089a3/tezos-admin-client-opensuse15.1.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/cc695439c53fe5b852d7c8c77e9089a3/tezos-admin-client-opensuse15.1.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99685,
+    "name": "tezos-admin-client-opensuse_tumbleweed",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/0d470d8bce4c30d5917c5597974d7551/tezos-admin-client-opensuse_tumbleweed",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/0d470d8bce4c30d5917c5597974d7551/tezos-admin-client-opensuse_tumbleweed",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99686,
+    "name": "tezos-admin-client-opensuse_tumbleweed.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/61010626db5cc9e7473d86ebbc7f784a/tezos-admin-client-opensuse_tumbleweed.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/61010626db5cc9e7473d86ebbc7f784a/tezos-admin-client-opensuse_tumbleweed.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99642,
+    "name": "tezos-admin-client-ubuntu16",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/51ddfb22f7e447c727e7414204218a4d/tezos-admin-client-ubuntu16",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/51ddfb22f7e447c727e7414204218a4d/tezos-admin-client-ubuntu16",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99643,
+    "name": "tezos-admin-client-ubuntu16.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/a12d0dde5e717105d70ace5166d44f0a/tezos-admin-client-ubuntu16.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/a12d0dde5e717105d70ace5166d44f0a/tezos-admin-client-ubuntu16.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99648,
+    "name": "tezos-admin-client-ubuntu18",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/9b415694536e5c7568ce9ca2124103cf/tezos-admin-client-ubuntu18",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/9b415694536e5c7568ce9ca2124103cf/tezos-admin-client-ubuntu18",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99649,
+    "name": "tezos-admin-client-ubuntu18.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/90bb68fb7bf283830b0576a23cdf4de7/tezos-admin-client-ubuntu18.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/90bb68fb7bf283830b0576a23cdf4de7/tezos-admin-client-ubuntu18.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99655,
+    "name": "tezos-admin-client-ubuntu19",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/54378e7ac4343b3d574b192fb346bfbf/tezos-admin-client-ubuntu19",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/54378e7ac4343b3d574b192fb346bfbf/tezos-admin-client-ubuntu19",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99656,
+    "name": "tezos-admin-client-ubuntu19.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/a870a33831d9e5529821b77ff3272fda/tezos-admin-client-ubuntu19.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/a870a33831d9e5529821b77ff3272fda/tezos-admin-client-ubuntu19.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99661,
+    "name": "tezos-admin-client-ubuntu20",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/20d291a4857cdc683af79c3f36ca1eea/tezos-admin-client-ubuntu20",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/20d291a4857cdc683af79c3f36ca1eea/tezos-admin-client-ubuntu20",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99662,
+    "name": "tezos-admin-client-ubuntu20.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/303eef31ba249583367e6958d13ad541/tezos-admin-client-ubuntu20.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/303eef31ba249583367e6958d13ad541/tezos-admin-client-ubuntu20.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99689,
+    "name": "tezos-client-centos7",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/8d9a69a26f704704f2406d2dfc93da8b/tezos-client-centos7",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/8d9a69a26f704704f2406d2dfc93da8b/tezos-client-centos7",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99690,
+    "name": "tezos-client-centos7.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/bd548b2d85d4dc6475e006cc42b7fca8/tezos-client-centos7.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/bd548b2d85d4dc6475e006cc42b7fca8/tezos-client-centos7.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99695,
+    "name": "tezos-client-centos8",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/550f7a32cefe4f8956fbc4d08547c4ac/tezos-client-centos8",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/550f7a32cefe4f8956fbc4d08547c4ac/tezos-client-centos8",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99696,
+    "name": "tezos-client-centos8.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/3e5ae6e6317aa20b6eb24519ca7f5c00/tezos-client-centos8.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/3e5ae6e6317aa20b6eb24519ca7f5c00/tezos-client-centos8.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99671,
+    "name": "tezos-client-debian10",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/38df0e410bb8724d19d4bf7d11b8ce49/tezos-client-debian10",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/38df0e410bb8724d19d4bf7d11b8ce49/tezos-client-debian10",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99672,
+    "name": "tezos-client-debian10.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/2f8373c504dbe3f709c834cbc272f066/tezos-client-debian10.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/2f8373c504dbe3f709c834cbc272f066/tezos-client-debian10.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99665,
+    "name": "tezos-client-debian9",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/e6e4fadf5c27f9c1e6c8869ba9c6e1f4/tezos-client-debian9",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e6e4fadf5c27f9c1e6c8869ba9c6e1f4/tezos-client-debian9",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99666,
+    "name": "tezos-client-debian9.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/2ad3134508769bfc574f6232d6699228/tezos-client-debian9.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/2ad3134508769bfc574f6232d6699228/tezos-client-debian9.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99701,
+    "name": "tezos-client-macos",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/285837af65053c8a9d358423fb206225/tezos-client-macos",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/285837af65053c8a9d358423fb206225/tezos-client-macos",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99702,
+    "name": "tezos-client-macos.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/68492bd86de4241bd6742910d30271ee/tezos-client-macos.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/68492bd86de4241bd6742910d30271ee/tezos-client-macos.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99677,
+    "name": "tezos-client-opensuse15.1",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/d760176f6ae6961cd63022e91226523b/tezos-client-opensuse15.1",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/d760176f6ae6961cd63022e91226523b/tezos-client-opensuse15.1",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99678,
+    "name": "tezos-client-opensuse15.1.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/abe093966874ef21499c6336968a3cf2/tezos-client-opensuse15.1.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/abe093966874ef21499c6336968a3cf2/tezos-client-opensuse15.1.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99683,
+    "name": "tezos-client-opensuse_tumbleweed",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/e320a6137e9e87939944b0f98006abb9/tezos-client-opensuse_tumbleweed",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/e320a6137e9e87939944b0f98006abb9/tezos-client-opensuse_tumbleweed",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99684,
+    "name": "tezos-client-opensuse_tumbleweed.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/c7130a653ea117d024a5814439bd905a/tezos-client-opensuse_tumbleweed.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/c7130a653ea117d024a5814439bd905a/tezos-client-opensuse_tumbleweed.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99640,
+    "name": "tezos-client-ubuntu16",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/5d67f5f2976d033a723bb783639f7751/tezos-client-ubuntu16",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/5d67f5f2976d033a723bb783639f7751/tezos-client-ubuntu16",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99641,
+    "name": "tezos-client-ubuntu16.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/7daabdbd0f6b5ae07d1719ec752bba36/tezos-client-ubuntu16.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/7daabdbd0f6b5ae07d1719ec752bba36/tezos-client-ubuntu16.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99646,
+    "name": "tezos-client-ubuntu18",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/40a79d2763ebcb6178be1dd002cdf4fc/tezos-client-ubuntu18",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/40a79d2763ebcb6178be1dd002cdf4fc/tezos-client-ubuntu18",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99647,
+    "name": "tezos-client-ubuntu18.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/3cb52955b386716f0054764fd7270102/tezos-client-ubuntu18.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/3cb52955b386716f0054764fd7270102/tezos-client-ubuntu18.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99652,
+    "name": "tezos-client-ubuntu19",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/ea4d844cc6d2390d7e1c0acd3985f539/tezos-client-ubuntu19",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ea4d844cc6d2390d7e1c0acd3985f539/tezos-client-ubuntu19",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99653,
+    "name": "tezos-client-ubuntu19.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/69229b7e33ce88ef3a8097f6967e091e/tezos-client-ubuntu19.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/69229b7e33ce88ef3a8097f6967e091e/tezos-client-ubuntu19.sha256",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99659,
+    "name": "tezos-client-ubuntu20",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/ba48251e9b7a418a860dd3fc9e06956c/tezos-client-ubuntu20",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ba48251e9b7a418a860dd3fc9e06956c/tezos-client-ubuntu20",
+    "external": false,
+    "link_type": "other"
+  },
+  {
+    "id": 99660,
+    "name": "tezos-client-ubuntu20.sha256",
+    "url": "https://gitlab.com/simplestaking/tezos/uploads/ed5ad6aea53674936d73680f863c7bee/tezos-client-ubuntu20.sha256",
+    "direct_asset_url": "https://gitlab.com/simplestaking/tezos/uploads/ed5ad6aea53674936d73680f863c7bee/tezos-client-ubuntu20.sha256",
     "external": false,
     "link_type": "other"
   }
