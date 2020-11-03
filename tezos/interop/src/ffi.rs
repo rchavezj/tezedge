@@ -16,6 +16,8 @@ use crate::runtime::OcamlError;
 mod tezos_ffi {
     use ocaml_interop::{ocaml, OCamlBytes, OCamlInt, OCamlInt32, OCamlList};
     use tezos_api::{
+        ffi::RpcError,
+        ffi::RpcResponse,
         ffi::{
             ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest, JsonRpcResponse,
             PrevalidatorWrapper, ProtocolJsonRpcRequest, ValidateOperationRequest,
@@ -29,6 +31,7 @@ mod tezos_ffi {
         pub fn apply_block(apply_block_request: ApplyBlockRequest) -> ApplyBlockResponse;
         pub fn begin_construction(begin_construction_request: BeginConstructionRequest) -> PrevalidatorWrapper;
         pub fn validate_operation(validate_operation_request: ValidateOperationRequest) -> ValidateOperationResponse;
+        pub fn call_arbitrary_rpc(request: ProtocolJsonRpcRequest) -> Result<RpcResponse, RpcError>;
         pub fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> JsonRpcResponse;
         pub fn helpers_preapply_operations(request: ProtocolJsonRpcRequest) -> JsonRpcResponse;
         pub fn helpers_preapply_block(request: ProtocolJsonRpcRequest) -> JsonRpcResponse;

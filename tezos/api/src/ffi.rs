@@ -569,6 +569,40 @@ pub struct JsonRpcResponse {
     pub body: Json
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub enum RpcResponse {
+    RPCConflict(Option<String>),
+    RPCCreated(Option<String>),
+    RPCError(Option<String>),
+    RPCForbidden(Option<String>),
+    RPCGone(Option<String>),
+    RPCNotContent,
+    RPCNotFound(Option<String>),
+    RPCOk(String),
+    RPCUnauthorized,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub enum RpcMethod {
+    DELETE, GET, PATCH, POST, PUT
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub struct RpcArgDesc {
+    name: String,
+    descr: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub enum RpcError {
+    RPCErrorCannotParseBody(String),
+    RPCErrorCannotParsePath(Vec<String>, RpcArgDesc, String),
+    RPCErrorCannotParseQuery(String),
+    RPCErrorInvalidMethodString(String),
+    RPCErrorMethodNotAllowed(Vec<RpcMethod>),
+    RPCErrorNotFound,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, Builder, PartialEq)]
 pub struct ProtocolJsonRpcRequest {
     pub block_header: BlockHeader,
