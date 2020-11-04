@@ -37,6 +37,7 @@ steps:
     - rm -rf /tmp/sandbox/tezos-client
     - rm -rf /home/tezos/data/
     - rm -rf /artifacts/*
+    - rm -rf /tmp/tezos-src/*
 
 - name: test-and-build-artifacts
   image: simplestakingcom/tezedge-ci-builder:latest
@@ -46,6 +47,8 @@ steps:
       path: /artifacts
     - name: sandbox-data
       path: /tmp/sandbox
+    - name: tezos-src
+      path: /tmp/tezos-src
   environment:
     RUST_BACKTRACE: 1
     SODIUM_USE_PKG_CONFIG: 1
@@ -73,12 +76,14 @@ steps:
     - mkdir /artifacts/ffi
     - mkdir /artifacts/tezedge
     - mkdir -p /artifacts/identities
+    - mkdir /tmp/tezos-src/modified
     - cp ./target/release/light-node /artifacts
     - cp ./target/release/sandbox /artifacts
     - cp ./target/release/protocol-runner /artifacts
     - cp ./target/release/libtezos_interop_callback.so /artifacts/ffi
     - cp ./tezos/interop/lib_tezos/artifacts/libtezos.so /artifacts/ffi
     - cp ./sandbox/artifacts/tezos-client /artifacts
+    - cp ./sandbox/artifacts/tezos-admin-client /artifacts
     - cp `find ./target/release/deps/ | grep integration_test | grep -v "\.d" | head -1` /artifacts/rpc_integration_test
     - cp ./light_node/etc/tezedge_sandbox/sandbox-patch-context.json /tmp/sandbox/
     - cp ./light_node/etc/tezedge_sandbox/006-carthage-protocol-parameters.json /tmp/sandbox/
@@ -91,14 +96,52 @@ steps:
     - cp ./light_node/etc/drone/assert_contains.sh /artifacts/ && chmod 755 /artifacts/assert_contains.sh
     - cp ./light_node/etc/drone/identities/* /artifacts/identities/
     - cp ./light_node/etc/tezedge/tezedge_drone.config /artifacts/tezedge/
+    # collect modified python test files
+    - cp -R ./tezos/python-tests /tmp/tezos-src/modified
+
+
+- name: prepare-python-tests
+  image: simplestakingcom/tezedge-ci-builder:python
+  user: root
+  volumes:
+    - name: build
+      path: /artifacts
+    - name: sandbox-data
+      path: /tmp/sandbox
+    - name: tezos-src
+      path: /tmp/tezos-src
+  environment:
+    RUST_BACKTRACE: 1
+    SODIUM_USE_PKG_CONFIG: 1
+  commands:
+    # copy the tezos src file from the imgage to a shared volume
+    - cp -R /tezos-src/tezos /tmp/tezos-src/tezos
+    # prepare modified python files for tests (compatibility with tezedge node)
+    - cp /tmp/tezos-src/modified/python-tests/daemons/node.py /tmp/tezos-src/tezos/tests_python/daemons/node.py
+    - cp /tmp/tezos-src/modified/python-tests/launchers/sandbox.py /tmp/tezos-src/tezos/tests_python/launchers/sandbox.py
+    - cp /tmp/tezos-src/modified/python-tests/tests/test_basic.py /tmp/tezos-src/tezos/tests_python/tests/test_basic.py
+    - cp /tmp/tezos-src/modified/python-tests/tests/test_mempool.py /tmp/tezos-src/tezos/tests_python/tests/test_mempool.py
+    - cp /tmp/tezos-src/modified/python-tests/tools/constants.py /tmp/tezos-src/tezos/tests_python/tools/constants.py
+    - cp /tmp/tezos-src/modified/python-tests/tools/utils.py /tmp/tezos-src/tezos/tests_python/tools/utils.py
+    - cp /tmp/tezos-src/modified/python-tests/test-parameters.json /tmp/tezos-src/tezos/src/proto_alpha/parameters/test-parameters.json
+    - cp /tmp/sandbox/sandbox-patch-context.json /tmp/tezos-src/tezos/sandbox-patch-context.json
+    # copy binaries to the test 
+    - cp /tmp/tezos-src/modified/python-tests/bin/tezos-client /tmp/tezos-src/tezos
+    - cp /tmp/tezos-src/modified/python-tests/bin/tezos-admin-client /tmp/tezos-src/tezos
+    - cp /artifacts/light-node /tmp/tezos-src/tezos/
+    - cp /artifacts/protocol-runner /tmp/tezos-src/tezos/
+    - cp /artifacts/ffi/libtezos.so /tmp/tezos-src/tezos/
 
 volumes:
   - name: build
     host:
       path: /etc/tezedge-ci-build/
+  - name: sandbox-data
+    host:
+      path: /etc/tezedge-ci-data/sandbox
   - name: tezos-src
     host:
-      path: /etc/tezos-src
+      path: /etc/tmp/tezos-src
 
 trigger:
   branch:
@@ -957,6 +1000,63 @@ depends_on:
   - build-and-tests
 
 ##############################################################################################################
+# This pipeline runs the python test framwork tests from the tezos repository aginst tezedge nodes
+##############################################################################################################
+---
+kind: pipeline
+name: tezos-python-tests
+
+steps:
+- name: mempool-test
+  image: simplestakingcom/tezedge-ci-builder:python
+  pull: if-not-exists
+  user: root
+  volumes:
+    - name: build
+      path: /artifacts
+    - name: tezos-src
+      path: /tmp/tezos-src
+  environment:
+    SODIUM_USE_PKG_CONFIG: 1
+    RUST_BACKTRACE: 1
+  commands:
+    - pyenv global 3.8.2
+    - cd /tmp/tezos-src/tezos/tests_python && poetry run pytest -s --log-dir=. tests/test_mempool.py
+
+- name: basic-test
+  image: simplestakingcom/tezedge-ci-builder:python
+  pull: if-not-exists
+  user: root
+  failure: ignore
+  volumes:
+    - name: build
+      path: /artifacts
+    - name: tezos-src
+      path: /tmp/tezos-src
+  environment:
+    SODIUM_USE_PKG_CONFIG: 1
+    RUST_BACKTRACE: 1
+  commands:
+    - pyenv global 3.8.2
+    - cd /tmp/tezos-src/tezos/tests_python && poetry run pytest -s --log-dir=. tests/test_basic.py
+
+volumes:
+  - name: build
+    host:
+      path: /etc/tezedge-ci-build/
+  - name: tezos-src
+    host:
+      path: /etc/tmp/tezos-src
+
+trigger:
+  branch:
+    - master
+    - develop
+
+depends_on:
+  - build-and-tests
+
+##############################################################################################################
 # This pipeline builds a docker image and pushes it to docker HUB - (latest) from develop branch
 ##############################################################################################################
 ---
@@ -1001,6 +1101,7 @@ depends_on:
   - sandbox-carthage-node-tests
   - connect-from-different-network-test
   - integration-offline-tests
+  - tezos-python-tests
 
 ##############################################################################################################
 # This pipeline builds a docker image and pushes it to docker HUB - (versioned/tagged) from master/release
@@ -1047,3 +1148,4 @@ depends_on:
   - sandbox-carthage-node-tests
   - connect-from-different-network-test
   - integration-offline-tests
+  - tezos-python-tests
