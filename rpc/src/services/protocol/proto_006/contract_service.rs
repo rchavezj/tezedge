@@ -28,7 +28,7 @@ pub(crate) fn get_contract_counter(context_proto_params: ContextProtocolParam, p
     };
 
     if let Some(contract_counter) = contract_counter {
-        Ok(Some(contract_counter.to_string()))
+        Ok(Some(contract_counter.to_numeric_string()))
     } else {
         Ok(None)
     }
@@ -46,7 +46,7 @@ pub(crate) fn get_contract_manager_key(context_proto_params: ContextProtocolPara
     if let Some(data) = context.get_key_from_history(&ctx_hash, &context_key!("{}/{}", construct_indexed_contract_key(pkh)?, "manager"))? {
         match SignaturePublicKey::from_tagged_bytes(data) {
             Ok(pk) => {
-                Ok(Some(pk.to_string()))
+                Ok(Some(pk.to_string_representation()))
             }
             Err(_) => Ok(None)
         }
@@ -65,7 +65,7 @@ pub(crate) fn get_contract_balance(context_proto_params: ContextProtocolParam, p
 
     if let Some(data) = context.get_key_from_history(&ctx_hash, &context_key!("{}/{}", construct_indexed_contract_key(pkh)?, "balance"))? {
         let balance = tezos_messages::protocol::proto_006::contract::Balance::from_bytes(data)?;
-        Ok(Some(balance.to_string()))
+        Ok(Some(balance.to_numeric_string()))
     } else {
         Ok(Some("0".to_string()))
     }

@@ -40,7 +40,7 @@ impl ToRpcJsonMap for EndorsingRight {
     fn as_map(&self) -> HashMap<&'static str, UniversalValue> {
         let mut ret: HashMap<&'static str, UniversalValue> = Default::default();
         ret.insert("level", UniversalValue::num(self.level));
-        ret.insert("delegate", UniversalValue::string(self.delegate.to_string()));
+        ret.insert("delegate", UniversalValue::string(self.delegate.to_string_representation()));
         ret.insert("slots", UniversalValue::num_list(self.slots.iter()));
         if let Some(ts) = self.estimated_time {
             ret.insert("estimated_time", UniversalValue::timestamp_rfc3339(ts));
@@ -81,7 +81,7 @@ impl ToRpcJsonMap for BakingRights {
     fn as_map(&self) -> HashMap<&'static str, UniversalValue> {
         let mut ret: HashMap<&'static str, UniversalValue> = Default::default();
         ret.insert("level", UniversalValue::num(self.level));
-        ret.insert("delegate", UniversalValue::string(self.delegate.to_string()));
+        ret.insert("delegate", UniversalValue::string(self.delegate.to_string_representation()));
         ret.insert("priority", UniversalValue::num(self.priority));
         if let Some(ts) = self.estimated_time {
             ret.insert("estimated_time", UniversalValue::timestamp_rfc3339(ts));

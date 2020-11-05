@@ -50,7 +50,7 @@ pub enum SignaturePublicKeyHash {
 
 impl SignaturePublicKeyHash {
     #[inline]
-    pub fn to_string(&self) -> String {
+    pub fn to_string_representation(&self) -> String {
         match self {
             SignaturePublicKeyHash::Ed25519(h) => HashType::ContractTz1Hash.bytes_to_string(h),
             SignaturePublicKeyHash::Secp256k1(h) => HashType::ContractTz2Hash.bytes_to_string(h),
@@ -183,13 +183,13 @@ mod tests {
     #[test]
     fn test_from_hex_hash_and_curve() -> Result<(), failure::Error> {
         let result = SignaturePublicKeyHash::from_hex_hash_and_curve(&"2cca28ab019ae2d8c26f4ce4924cad67a2dc6618", &"ed25519")?;
-        assert_eq!(result.to_string().as_str(), "tz1PirboZKFVqkfE45hVLpkpXaZtLk3mqC17");
+        assert_eq!(result.to_string_representation().as_str(), "tz1PirboZKFVqkfE45hVLpkpXaZtLk3mqC17");
 
         let result = SignaturePublicKeyHash::from_hex_hash_and_curve(&"20262e6195b91181f1713c4237c8195096b8adc9", &"secp256k1")?;
-        assert_eq!(result.to_string().as_str(), "tz2BFE2MEHhphgcR7demCGQP2k1zG1iMj1oj");
+        assert_eq!(result.to_string_representation().as_str(), "tz2BFE2MEHhphgcR7demCGQP2k1zG1iMj1oj");
 
         let result = SignaturePublicKeyHash::from_hex_hash_and_curve(&"6fde46af0356a0476dae4e4600172dc9309b3aa4", &"p256")?;
-        assert_eq!(result.to_string().as_str(), "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5");
+        assert_eq!(result.to_string_representation().as_str(), "tz3WXYtyDUNL91qfiCJtVUX746QpNv5i5ve5");
 
         let result = SignaturePublicKeyHash::from_hex_hash_and_curve(&"2cca28ab019ae2d8c26f4ce4924cad67a2dc6618", &"invalidcurvetag");
         assert_eq!(result.unwrap_err(), ConversionError::InvalidCurveTag { curve_tag: "invalidcurvetag".to_string() });
