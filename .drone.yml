@@ -101,8 +101,7 @@ steps:
 
 
 - name: prepare-python-tests
-  image: simplestakingcom/tezedge-ci-builder:python
-  pull: always
+  image: simplestakingcom/tezedge-ci-builder:latest
   user: root
   volumes:
     - name: build
@@ -1012,7 +1011,7 @@ clone:
 
 steps:
 - name: mempool-test
-  image: simplestakingcom/tezedge-ci-builder:python
+  image: simplestakingcom/tezedge-ci-builder:latest
   user: root
   volumes:
     - name: build
@@ -1027,7 +1026,7 @@ steps:
     - cd /tmp/tezos-src/tezos/tests_python && poetry run pytest -s --log-dir=. tests/test_mempool.py
 
 - name: basic-test
-  image: simplestakingcom/tezedge-ci-builder:python
+  image: simplestakingcom/tezedge-ci-builder:latest
   pull: if-not-exists
   user: root
   failure: ignore
