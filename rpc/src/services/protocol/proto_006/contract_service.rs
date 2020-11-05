@@ -62,8 +62,6 @@ pub(crate) fn get_contract_balance(context_proto_params: ContextProtocolParam, p
 
     // get context_hash from level
     let ctx_hash = context.level_to_hash(level.try_into()?)?;
-    
-    let indexed_contract_key = construct_indexed_contract_key(pkh)?;
 
     if let Some(data) = context.get_key_from_history(&ctx_hash, &context_key!("{}/{}", construct_indexed_contract_key(pkh)?, "balance"))? {
         let balance = tezos_messages::protocol::proto_006::contract::Balance::from_bytes(data)?;
