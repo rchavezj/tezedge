@@ -102,6 +102,7 @@ steps:
 
 - name: prepare-python-tests
   image: simplestakingcom/tezedge-ci-builder:python
+  pull: always
   user: root
   volumes:
     - name: build
