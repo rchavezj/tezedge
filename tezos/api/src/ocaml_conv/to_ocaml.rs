@@ -170,6 +170,7 @@ impl_to_ocaml_record! {
     JsonRpcRequest {
         body: OCamlBytes,
         context_path: OCamlBytes,
+        meth: OCamlBytes,
     }
 }
 
