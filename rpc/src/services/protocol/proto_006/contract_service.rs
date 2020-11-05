@@ -12,7 +12,7 @@ use tezos_messages::p2p::binary_message::BinaryMessage;
 use crate::helpers::ContextProtocolParam;
 use crate::services::protocol::proto_006::helpers::construct_indexed_contract_key;
 
-pub(crate) fn get_contract_counter(context_proto_params: ContextProtocolParam, pkh: &str, context: TezedgeContext) -> Result<Option<String>, failure::Error> {
+pub(crate) fn get_contract_counter(context_proto_params: ContextProtocolParam, pkh: &str, context: &TezedgeContext) -> Result<Option<String>, failure::Error> {
 
     // level of the block
     let level = context_proto_params.level;
@@ -34,7 +34,7 @@ pub(crate) fn get_contract_counter(context_proto_params: ContextProtocolParam, p
     }
 }
 
-pub(crate) fn get_contract_manager_key(context_proto_params: ContextProtocolParam, pkh: &str, context: TezedgeContext) -> Result<Option<String>, failure::Error> {
+pub(crate) fn get_contract_manager_key(context_proto_params: ContextProtocolParam, pkh: &str, context: &TezedgeContext) -> Result<Option<String>, failure::Error> {
 
     // level of the block
     let level = context_proto_params.level;
@@ -55,7 +55,7 @@ pub(crate) fn get_contract_manager_key(context_proto_params: ContextProtocolPara
     }
 }
 
-pub(crate) fn get_contract_balance(context_proto_params: ContextProtocolParam, pkh: &str, context: TezedgeContext) -> Result<Option<String>, failure::Error> {
+pub(crate) fn get_contract_balance(context_proto_params: ContextProtocolParam, pkh: &str, context: &TezedgeContext) -> Result<Option<String>, failure::Error> {
 
     // level of the block
     let level = context_proto_params.level;

@@ -5,7 +5,6 @@ use riker::actors::BasicActorRef;
 use std::convert::TryInto;
 
 use failure::bail;
-use slog::Logger;
 use riker::actor::ActorReference;
 use serde::Serialize;
 
@@ -135,13 +134,17 @@ pub(crate) fn get_current_head_monitor_header(state: &RpcCollectedStateRef) -> R
 
 
 /// Get information about block
-pub(crate) fn get_full_block(block_id: &str, persistent_storage: &PersistentStorage, state: &RpcCollectedStateRef) -> Result<Option<FullBlockInfo>, failure::Error> {
+pub(crate) fn get_full_block(block_id: &str, env: &RpcServiceEnvironment) -> Result<Option<FullBlockInfo>, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
     let block = get_block_by_block_id(block_id, persistent_storage, state)?;
     Ok(block)
 }
 
 /// Get information about block header
-pub(crate) fn get_block_header(block_id: &str, persistent_storage: &PersistentStorage, state: &RpcCollectedStateRef) -> Result<Option<BlockHeaderInfo>, failure::Error> {
+pub(crate) fn get_block_header(block_id: &str, env: &RpcServiceEnvironment) -> Result<Option<BlockHeaderInfo>, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
     let block_storage = BlockStorage::new(persistent_storage);
     let block_hash = get_block_hash_by_block_id(block_id, persistent_storage, state)?;
     let block = block_storage.get_with_json_data(&block_hash)?.map(|(header, json_data)| map_header_and_json_to_block_header_info(header, json_data, state));
@@ -150,7 +153,9 @@ pub(crate) fn get_block_header(block_id: &str, persistent_storage: &PersistentSt
 }
 
 /// Get information about block shell header
-pub(crate) fn get_block_shell_header(block_id: &str, persistent_storage: &PersistentStorage, state: &RpcCollectedStateRef) -> Result<Option<BlockHeaderShellInfo>, failure::Error> {
+pub(crate) fn get_block_shell_header(block_id: &str, env: &RpcServiceEnvironment) -> Result<Option<BlockHeaderShellInfo>, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
     let block_storage = BlockStorage::new(persistent_storage);
     let block_hash = HashType::BlockHash.string_to_bytes(&get_block_hash(block_id, persistent_storage, state)?)?;
     let block = block_storage.get_with_json_data(&block_hash)?.map(|(header, json_data)| map_header_and_json_to_block_header_info(header, json_data, state).to_shell_header());
@@ -180,19 +185,19 @@ pub(crate) fn live_blocks(_chain_param: &str, block_param: &str, env: &RpcServic
 }
 
 #[derive(Serialize, Debug)]
-pub(crate) struct Prevalidators {
+pub(crate) struct Prevalidator {
     chain_id: String,
     since: String,
 }
 
 // TODO: implement the json structure form ocaml's RPC 
-pub(crate) fn get_prevalidators(env: &RpcServiceEnvironment) -> Result<Vec<Prevalidators>, failure::Error> {
+pub(crate) fn get_prevalidators(env: &RpcServiceEnvironment) -> Result<Vec<Prevalidator>, failure::Error> {
     let chain_id = get_chain_id(env.state()).unwrap_or("".to_string());
     
     if env.sys().user_root().children().filter(|actor_ref| actor_ref.name() == "mempool-prevalidator").collect::<Vec<BasicActorRef>>().is_empty() {
         Ok(vec![])
     } else {
-        Ok(vec![Prevalidators {
+        Ok(vec![Prevalidator {
             chain_id,
             since: env.sys().start_date().to_rfc3339(),
         }])
@@ -213,8 +218,9 @@ pub(crate) fn get_prevalidators(env: &RpcServiceEnvironment) -> Result<Vec<Preva
 pub(crate) fn get_context_constants_just_for_rpc(
     block_id: &str,
     opt_level: Option<i64>,
-    persistent_storage: &PersistentStorage,
-    state: &RpcCollectedStateRef) -> Result<Option<RpcJsonMap>, failure::Error> {
+    env: &RpcServiceEnvironment) -> Result<Option<RpcJsonMap>, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
     let context_proto_params = get_context_protocol_params(
         block_id,
         opt_level,
@@ -225,8 +231,12 @@ pub(crate) fn get_context_constants_just_for_rpc(
     Ok(tezos_messages::protocol::get_constants_for_rpc(&context_proto_params.constants_data, context_proto_params.protocol_hash)?)
 }
 
-pub(crate) fn get_cycle_length_for_block(block_id: &str, storage: &PersistentStorage, state: &RpcCollectedStateRef, log: &Logger) -> Result<i32, failure::Error> {
-    if let Ok(context_proto_params) = get_context_protocol_params(block_id, None, storage, state) {
+pub(crate) fn get_cycle_length_for_block(block_id: &str, env: &RpcServiceEnvironment) -> Result<i32, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let log = env.log();
+
+    if let Ok(context_proto_params) = get_context_protocol_params(block_id, None, persistent_storage, state) {
         Ok(tezos_messages::protocol::get_constants_for_rpc(&context_proto_params.constants_data, context_proto_params.protocol_hash)?
             .map(|constants| constants.get("blocks_per_cycle")
                 .map(|value| if let UniversalValue::Number(value) = value { *value } else {
@@ -243,7 +253,11 @@ pub(crate) fn get_cycle_length_for_block(block_id: &str, storage: &PersistentSto
     }
 }
 
-pub(crate) fn get_context_raw_bytes(block_id: &str, prefix: Option<&str>, persistent_storage: &PersistentStorage, context: &TezedgeContext, state: &RpcCollectedStateRef) -> Result<StringTree, failure::Error> {
+pub(crate) fn get_context_raw_bytes(block_id: &str, prefix: Option<&str>, env: &RpcServiceEnvironment) -> Result<StringTree, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
+    
     // TODO: should be replaced by context_hash
     // get block level first
     let ctxt_level: i32 = match get_level_by_block_id(block_id, persistent_storage, state)? {
@@ -270,7 +284,10 @@ pub(crate) fn get_stats_memory() -> MemoryStatsResult<MemoryData> {
 }
 
 /// Extract the current_protocol and the next_protocol from the block metadata
-pub(crate) fn get_block_protocols(block_id: &str, persistent_storage: &PersistentStorage, state: &RpcCollectedStateRef) -> Result<Protocols, failure::Error> {
+pub(crate) fn get_block_protocols(block_id: &str, env: &RpcServiceEnvironment) -> Result<Protocols, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+
     let block = get_block_by_block_id(block_id, persistent_storage, state)?;
 
     if let Some(block_info) = block {
@@ -303,7 +320,10 @@ pub(crate) fn get_chain_id(state: &RpcCollectedStateRef) -> Result<String, failu
 }
 
 /// Returns the chain id for the requested chain
-pub(crate) fn get_block_operation_hashes(block_id: &str, persistent_storage: &PersistentStorage, state: &RpcCollectedStateRef) -> Result<Vec<BlockOperations>, failure::Error> {
+pub(crate) fn get_block_operation_hashes(block_id: &str, env: &RpcServiceEnvironment) -> Result<Vec<BlockOperations>, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+
     let block = get_block_by_block_id(block_id, persistent_storage, state)?;
 
     if let Some(block_info) = block {

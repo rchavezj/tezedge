@@ -50,7 +50,7 @@ pub(crate) fn check_and_get_baking_rights(
     cycle: Option<&str>,
     max_priority: Option<&str>,
     has_all: bool,
-    context: TezedgeContext,
+    context: &TezedgeContext,
     persistent_storage: &PersistentStorage) -> Result<Option<Vec<RpcJsonMap>>, failure::Error> {
 
     // get block level first
@@ -226,7 +226,7 @@ pub(crate) fn check_and_get_endorsing_rights(
     delegate: Option<&str>,
     cycle: Option<&str>,
     has_all: bool,
-    context: TezedgeContext,
+    context: &TezedgeContext,
     persistent_storage: &PersistentStorage) -> Result<Option<Vec<RpcJsonMap>>, failure::Error> {
 
     // get block level from block_id and from now get all nessesary data by block level

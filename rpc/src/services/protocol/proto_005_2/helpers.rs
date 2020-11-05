@@ -116,7 +116,7 @@ impl RightsContextData {
     /// * `list` - Context list handler.
     ///
     /// Return RightsContextData.
-    pub(crate) fn prepare_context_data_for_rights(parameters: RightsParams, constants: RightsConstants, context: TezedgeContext) -> Result<Self, failure::Error> {
+    pub(crate) fn prepare_context_data_for_rights(parameters: RightsParams, constants: RightsConstants, context: &TezedgeContext) -> Result<Self, failure::Error> {
         // prepare constants that are used
         let blocks_per_cycle = *constants.blocks_per_cycle();
 

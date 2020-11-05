@@ -87,7 +87,7 @@ pub async fn chains_block_id(_: Request<Body>, params: Params, _: Query, env: Rp
         if block_id == "head" {
             result_option_to_json_response(base_services::get_full_current_head(env.state()).map(|res| res.map(BlockInfo::from)), env.log())
         } else {
-            result_option_to_json_response(base_services::get_full_block(block_id, env.persistent_storage(), env.state()).map(|res| res.map(BlockInfo::from)), env.log())
+            result_option_to_json_response(base_services::get_full_block(block_id, &env).map(|res| res.map(BlockInfo::from)), env.log())
         }
     } else {
         empty()
@@ -102,7 +102,7 @@ pub async fn chains_block_id_header(_: Request<Body>, params: Params, _: Query, 
         if block_id == "head" {
             result_option_to_json_response(base_services::get_current_head_header(env.state()).map(|res| res), env.log())
         } else {
-            result_option_to_json_response(base_services::get_block_header(block_id, env.persistent_storage(), env.state()).map(|res| res), env.log())
+            result_option_to_json_response(base_services::get_block_header(block_id, &env).map(|res| res), env.log())
         }
     } else {
         empty()
@@ -117,7 +117,7 @@ pub async fn chains_block_id_header_shell(_: Request<Body>, params: Params, _: Q
         if block_id == "head" {
             result_option_to_json_response(base_services::get_current_head_shell_header(env.state()).map(|res| res), env.log())
         } else {
-            result_option_to_json_response(base_services::get_block_shell_header(block_id, env.persistent_storage(), env.state()).map(|res| res), env.log())
+            result_option_to_json_response(base_services::get_block_shell_header(block_id, &env).map(|res| res), env.log())
         }
     } else {
         empty()
@@ -127,7 +127,7 @@ pub async fn chains_block_id_header_shell(_: Request<Body>, params: Params, _: Q
 pub async fn context_raw_bytes(_: Request<Body>, params: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
     let block_id = params.get_str("block_id").unwrap();
     let prefix = params.get_str("any");
-    result_to_json_response(base_services::get_context_raw_bytes(block_id, prefix, env.persistent_storage(), env.tezedge_context(), env.state()), env.log())
+    result_to_json_response(base_services::get_context_raw_bytes(block_id, prefix, &env), env.log())
 }
 
 pub async fn mempool_pending_operations(_: Request<Body>, params: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
@@ -177,7 +177,7 @@ pub async fn get_block_protocols(_: Request<Body>, params: Params, _: Query, env
 
 
     result_to_json_response(
-        base_services::get_block_protocols(block_id, env.persistent_storage(), env.state()),
+        base_services::get_block_protocols(block_id, &env),
         env.log(),
     )
 }
@@ -208,7 +208,7 @@ pub async fn get_block_operation_hashes(_: Request<Body>, params: Params, _: Que
 
 
     result_to_json_response(
-        base_services::get_block_operation_hashes(block_id, env.persistent_storage(), env.state()),
+        base_services::get_block_operation_hashes(block_id, &env),
         env.log(),
     )
 }
@@ -266,15 +266,14 @@ pub async fn node_version(_: Request<Body>, _: Params, _: Query, env: RpcService
 }
 
 // TODO: remove. This is a 'fake it till you make it' handler
-// Handler faking the describe routes in ocaml to be compatible with tezoses python test framework
+/// Handler mockin the describe routes in ocaml to be compatible with tezoses python test framework
 pub async fn describe(method: Method, req: Request<Body>, _: Params, _: Query, env: RpcServiceEnvironment) -> ServiceResult {
-    //let method = req.method();
     let path: Vec<String> = req.uri().path().split("/").skip(2).map(|v| v.to_string()).collect();
 
     let service_fields = serde_json::json!({
         "meth": method.as_str(),
         "path": path,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "description": "Handler mockin the describe routes in ocaml to be compatible with tezoses python test framework.",
         "query": [],
         "output": {
             "json_schema": {},

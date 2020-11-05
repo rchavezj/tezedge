@@ -19,8 +19,7 @@ use serde::{Deserialize, Serialize};
 
 use crypto::hash::HashType;
 use storage::{BlockStorage, BlockStorageReader, context_key, num_from_slice};
-use storage::context::{ContextApi, TezedgeContext};
-use storage::persistent::PersistentStorage;
+use storage::context::{ContextApi};
 use tezos_api::ffi::{FfiRpcService, JsonRpcRequest, ProtocolJsonRpcRequest};
 use tezos_messages::base::signature_public_key_hash::SignaturePublicKeyHash;
 use tezos_messages::protocol::{
@@ -35,7 +34,6 @@ use tezos_messages::protocol::{
 };
 
 use crate::helpers::{get_block_hash_by_block_id, get_context_protocol_params, get_level_by_block_id};
-use crate::rpc_actor::RpcCollectedStateRef;
 use crate::server::RpcServiceEnvironment;
 
 mod proto_001;
@@ -69,8 +67,11 @@ pub(crate) fn check_and_get_baking_rights(
     cycle: Option<&str>,
     max_priority: Option<&str>,
     has_all: bool,
-    persistent_storage: &PersistentStorage,
-    state: &RpcCollectedStateRef) -> Result<Option<Vec<RpcJsonMap>>, failure::Error> {
+    env: &RpcServiceEnvironment) -> Result<Option<Vec<RpcJsonMap>>, failure::Error> {
+
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // get protocol and constants
     let context_proto_params = get_context_protocol_params(
@@ -79,8 +80,6 @@ pub(crate) fn check_and_get_baking_rights(
         persistent_storage,
         state,
     )?;
-
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
 
     // split impl by protocol
     let hash: &str = &HashType::ProtocolHash.bytes_to_string(&context_proto_params.protocol_hash);
@@ -190,8 +189,11 @@ pub(crate) fn check_and_get_endorsing_rights(
     delegate: Option<&str>,
     cycle: Option<&str>,
     has_all: bool,
-    persistent_storage: &PersistentStorage,
-    state: &RpcCollectedStateRef) -> Result<Option<Vec<RpcJsonMap>>, failure::Error> {
+    env: &RpcServiceEnvironment) -> Result<Option<Vec<RpcJsonMap>>, failure::Error> {
+
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // get protocol and constants
     let context_proto_params = get_context_protocol_params(
@@ -200,8 +202,6 @@ pub(crate) fn check_and_get_endorsing_rights(
         persistent_storage,
         state,
     )?;
-
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
 
     // split impl by protocol
     let hash: &str = &HashType::ProtocolHash.bytes_to_string(&context_proto_params.protocol_hash);
@@ -283,10 +283,12 @@ pub(crate) fn check_and_get_endorsing_rights(
     }
 }
 
-pub(crate) fn get_votes_listings(_chain_id: &str, block_id: &str, persistent_storage: &PersistentStorage, state: &RpcCollectedStateRef) -> Result<Option<Vec<VoteListings>>, failure::Error> {
+pub(crate) fn get_votes_listings(_chain_id: &str, block_id: &str, env: &RpcServiceEnvironment) -> Result<Option<Vec<VoteListings>>, failure::Error> {
     let mut listings = Vec::<VoteListings>::new();
 
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // get block level first
     let block_level: i64 = match get_level_by_block_id(block_id, persistent_storage, state)? {
@@ -346,8 +348,11 @@ pub(crate) fn proto_get_contract_counter(
     _chain_id: &str,
     block_id: &str,
     pkh: &str,
-    persistent_storage: &PersistentStorage,
-    state: &RpcCollectedStateRef) -> Result<Option<String>, failure::Error> {
+    env: &RpcServiceEnvironment) -> Result<Option<String>, failure::Error> {
+
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // get protocol and constants
     let context_proto_params = get_context_protocol_params(
@@ -356,8 +361,6 @@ pub(crate) fn proto_get_contract_counter(
         persistent_storage,
         state,
     )?;
-
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
 
     // split impl by protocol
     let hash: &str = &HashType::ProtocolHash.bytes_to_string(&context_proto_params.protocol_hash);
@@ -387,8 +390,11 @@ pub(crate) fn proto_get_contract_manager_key(
     _chain_id: &str,
     block_id: &str,
     pkh: &str,
-    persistent_storage: &PersistentStorage,
-    state: &RpcCollectedStateRef) -> Result<Option<String>, failure::Error> {
+    env: &RpcServiceEnvironment) -> Result<Option<String>, failure::Error> {
+
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // get protocol and constants
     let context_proto_params = get_context_protocol_params(
@@ -397,8 +403,6 @@ pub(crate) fn proto_get_contract_manager_key(
         persistent_storage,
         state,
     )?;
-
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
 
     // split impl by protocol
     let hash: &str = &HashType::ProtocolHash.bytes_to_string(&context_proto_params.protocol_hash);
@@ -428,8 +432,11 @@ pub(crate) fn proto_get_contract_balance(
     _chain_id: &str,
     block_id: &str,
     pkh: &str,
-    persistent_storage: &PersistentStorage,
-    state: &RpcCollectedStateRef) -> Result<Option<String>, failure::Error> {
+    env: &RpcServiceEnvironment) -> Result<Option<String>, failure::Error> {
+
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // get protocol and constants
     let context_proto_params = get_context_protocol_params(
@@ -438,8 +445,6 @@ pub(crate) fn proto_get_contract_balance(
         persistent_storage,
         state,
     )?;
-
-    let context = TezedgeContext::new(BlockStorage::new(&persistent_storage), persistent_storage.merkle());
 
     // split impl by protocol
     let hash: &str = &HashType::ProtocolHash.bytes_to_string(&context_proto_params.protocol_hash);
@@ -564,7 +569,10 @@ pub struct CycleJson {
     random_seed: Option<String>,
 }
 
-pub(crate) fn get_cycle_from_context_as_json(block_id: &str, cycle_id: &str, persistent_storage: &PersistentStorage, context: &TezedgeContext, state: &RpcCollectedStateRef) -> Result<Option<CycleJson>, failure::Error> {
+pub(crate) fn get_cycle_from_context_as_json(block_id: &str, cycle_id: &str, env: &RpcServiceEnvironment) -> Result<Option<CycleJson>, failure::Error> {
+    let persistent_storage = env.persistent_storage();
+    let state = env.state();
+    let context = env.tezedge_context();
 
     // TODO: should be replaced by context_hash
     // get block level first
