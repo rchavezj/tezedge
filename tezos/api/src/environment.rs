@@ -29,6 +29,7 @@ pub enum TezosEnvironment {
     Alphanet,
     Babylonnet,
     Carthagenet,
+    Delphinet,
     Mainnet,
     Zeronet,
     Sandbox,
@@ -45,6 +46,7 @@ impl FromStr for TezosEnvironment {
             "alphanet" => Ok(TezosEnvironment::Alphanet),
             "babylonnet" | "babylon" => Ok(TezosEnvironment::Babylonnet),
             "carthagenet" | "carthage" => Ok(TezosEnvironment::Carthagenet),
+            "delphinet" | "delphi" => Ok(TezosEnvironment::Delphinet),
             "mainnet" => Ok(TezosEnvironment::Mainnet),
             "zeronet" => Ok(TezosEnvironment::Zeronet),
             "sandbox" => Ok(TezosEnvironment::Sandbox),
@@ -107,6 +109,26 @@ fn init() -> HashMap<TezosEnvironment, TezosEnvironmentConfiguration> {
             "104.248.136.94".to_string()
         ],
         version: "TEZOS_ALPHANET_CARTHAGE_2019-11-28T13:02:13Z".to_string(),
+        protocol_overrides: ProtocolOverrides {
+            forced_protocol_upgrades: vec![],
+            voted_protocol_overrides: vec![],
+        },
+        enable_testchain: true,
+    });
+
+    env.insert(TezosEnvironment::Delphinet, TezosEnvironmentConfiguration {
+        genesis: GenesisChain {
+            time: "2020-09-04T07:08:53Z".to_string(),
+            block: "BLockGenesisGenesisGenesisGenesisGenesis355e8bjkYPv".to_string(),
+            protocol: "PtYuensgYBb3G3x1hLLbCmcav8ue8Kyd2khADcL5LsT5R1hcXex".to_string(),
+        },
+        bootstrap_lookup_addresses: vec![
+            "delphinet.tezos.co.il".to_string(),
+            "delphinet.smartpy.io".to_string(),
+            "delphinet.kaml.fr".to_string(),
+            "13.53.41.201".to_string(),
+        ],
+        version: "TEZOS_DELPHINET_2020-09-04T07:08:53Z".to_string(),
         protocol_overrides: ProtocolOverrides {
             forced_protocol_upgrades: vec![],
             voted_protocol_overrides: vec![],
