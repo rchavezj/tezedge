@@ -11,7 +11,6 @@ use serial_test::serial;
 use tezos_api::{
     ffi::{ApplyBlockRequest, ApplyBlockRequestBuilder},
     ffi::BeginConstructionRequest,
-    ffi::FfiRpcService,
     ffi::JsonRpcRequest,
     ffi::PrevalidatorWrapper,
     ffi::ProtocolJsonRpcRequest,
@@ -39,7 +38,7 @@ mod tezos_ffi {
     use ocaml_interop::{ocaml, OCamlBytes, OCamlInt, OCamlInt32, OCamlInt64, OCamlList};
 
     use tezos_api::{
-        ffi::ApplyBlockRequest, ffi::BeginConstructionRequest, ffi::FfiRpcService,
+        ffi::ApplyBlockRequest, ffi::BeginConstructionRequest,
         ffi::JsonRpcRequest, ffi::PrevalidatorWrapper, ffi::ProtocolJsonRpcRequest,
         ffi::ValidateOperationRequest, ocaml_conv::OCamlBlockHash, ocaml_conv::OCamlContextHash,
         ocaml_conv::OCamlOperationHash, ocaml_conv::OCamlProtocolHash,
@@ -85,6 +84,8 @@ mod tezos_ffi {
             json_rpc_request: JsonRpcRequest,
             body: OCamlBytes,
             context_path: OCamlBytes,
+            meth: OCamlBytes,
+            content_type: Option<OCamlBytes>,
         ) -> bool;
         pub fn construct_and_compare_protocol_json_rpc_request(
             protocol_json_rpc_request: ProtocolJsonRpcRequest,
@@ -92,7 +93,6 @@ mod tezos_ffi {
             chain_id: OCamlBytes,
             chain_arg: OCamlBytes,
             request: JsonRpcRequest,
-            ffi_service: FfiRpcService,
         ) -> bool;
         pub fn construct_and_compare_operation(
             operation: Operation,
@@ -330,17 +330,23 @@ fn test_validate_json_rpc_request_conv() {
     let json_rpc_request = JsonRpcRequest {
         body: "body of json request".to_owned(),
         context_path: "/context/path/string".to_owned(),
+        meth: "GET".to_owned(),
+        content_type: None,
     };
     let result: bool = runtime::execute(move || {
-        ocaml_frame!(gc(body_root, context_path_root), {
+        ocaml_frame!(gc(body_root, context_path_root, meth_root, content_type_root), {
             let body = to_ocaml!(gc, json_rpc_request.body, body_root);
             let context_path = to_ocaml!(gc, json_rpc_request.context_path, context_path_root);
+            let meth = to_ocaml!(gc, json_rpc_request.meth, meth_root);
+            let content_type = to_ocaml!(gc, json_rpc_request.content_type, content_type_root);
             let json_rpc_request = to_ocaml!(gc, json_rpc_request);
             ocaml_call!(tezos_ffi::construct_and_compare_json_rpc_request(
                 gc,
                 json_rpc_request,
                 gc.get(&body),
                 gc.get(&context_path),
+                gc.get(&meth),
+                gc.get(&content_type),
             ))
             .unwrap()
             .to_rust()
@@ -356,13 +362,14 @@ fn test_validate_protocol_json_rpc_request_conv() {
     let json_rpc_request = JsonRpcRequest {
         body: "body of json request".to_owned(),
         context_path: "/context/path/string".to_owned(),
+        meth: "GET".to_owned(),
+        content_type: None,
     };
     let protocol_json_rpc_request = ProtocolJsonRpcRequest {
         block_header: BlockHeader::from_bytes(hex::decode(HEADER).unwrap()).unwrap(),
         chain_arg: "some chain arg".to_owned(),
         chain_id: hex::decode(CHAIN_ID).unwrap(),
         request: json_rpc_request,
-        ffi_service: FfiRpcService::HelpersRunOperation,
     };
     let result: bool = runtime::execute(move || {
         ocaml_frame!(gc(block_header_root, chain_arg_root, chain_id_root, request_root, ffi_service_root), {
@@ -374,7 +381,6 @@ fn test_validate_protocol_json_rpc_request_conv() {
             let ref chain_arg = to_ocaml!(gc, protocol_json_rpc_request.chain_arg, chain_arg_root);
             let ref chain_id = to_ocaml!(gc, protocol_json_rpc_request.chain_id, chain_id_root);
             let ref request = to_ocaml!(gc, protocol_json_rpc_request.request, request_root);
-            let ref ffi_service = to_ocaml!(gc, protocol_json_rpc_request.ffi_service, ffi_service_root);
             let protocol_json_rpc_request = to_ocaml!(gc, protocol_json_rpc_request);
             ocaml_call!(tezos_ffi::construct_and_compare_protocol_json_rpc_request(
                 gc,
@@ -383,7 +389,6 @@ fn test_validate_protocol_json_rpc_request_conv() {
                 gc.get(&chain_id),
                 gc.get(&chain_arg),
                 gc.get(&request),
-                gc.get(&ffi_service),
             ))
             .unwrap()
             .to_rust()

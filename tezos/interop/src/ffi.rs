@@ -31,7 +31,7 @@ mod tezos_ffi {
         pub fn apply_block(apply_block_request: ApplyBlockRequest) -> ApplyBlockResponse;
         pub fn begin_construction(begin_construction_request: BeginConstructionRequest) -> PrevalidatorWrapper;
         pub fn validate_operation(validate_operation_request: ValidateOperationRequest) -> ValidateOperationResponse;
-        pub fn call_arbitrary_rpc(request: ProtocolJsonRpcRequest) -> Result<RpcResponse, RpcError>;
+        pub fn call_protocol_rpc(request: ProtocolJsonRpcRequest) -> Result<RpcResponse, RpcError>;
         pub fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> JsonRpcResponse;
         pub fn helpers_preapply_operations(request: ProtocolJsonRpcRequest) -> JsonRpcResponse;
         pub fn helpers_preapply_block(request: ProtocolJsonRpcRequest) -> JsonRpcResponse;
@@ -253,11 +253,16 @@ pub fn validate_operation(
     call(tezos_ffi::validate_operation, request)
 }
 
-/// Call protocol json rpc - general service
-pub fn call_protocol_json_rpc(
+pub fn call_protocol_rpc(
     request: ProtocolJsonRpcRequest,
-) -> Result<Result<JsonRpcResponse, CallError>, OcamlError> {
-    call(tezos_ffi::call_protocol_json_rpc, request)
+) -> Result<Result<RpcResponse, RpcError>, OcamlError> {
+    runtime::execute(move || {
+        ocaml_frame!(gc, {
+            let ocaml_request = to_ocaml!(gc, request);
+            let result = ocaml_call!(tezos_ffi::call_protocol_rpc(gc, ocaml_request));
+            result.unwrap().to_rust()
+        })
+    })
 }
 
 /// Call helpers_preapply_operations shell service

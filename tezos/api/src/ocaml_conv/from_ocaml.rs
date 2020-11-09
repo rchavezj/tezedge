@@ -4,11 +4,7 @@
 use super::{
     FfiPath, OCamlBlockHash, OCamlContextHash, OCamlHash, OCamlOperationHash, OCamlProtocolHash,
 };
-use crate::ffi::{
-    Applied, ApplyBlockResponse, Errored, ForkingTestchainData, JsonRpcResponse,
-    OperationProtocolDataJsonWithErrorListJson, PrevalidatorWrapper, ValidateOperationResponse,
-    ValidateOperationResult,
-};
+use crate::ffi::{Applied, ApplyBlockResponse, Errored, ForkingTestchainData, JsonRpcResponse, OperationProtocolDataJsonWithErrorListJson, PrevalidatorWrapper, RpcArgDesc, RpcError, RpcMethod, RpcResponse, ValidateOperationResponse, ValidateOperationResult};
 use crypto::hash::{BlockHash, ContextHash, Hash, OperationHash, ProtocolHash};
 use tezos_messages::p2p::encoding::operations_for_blocks::{Path, PathLeft, PathRight};
 use ocaml_interop::{
@@ -102,6 +98,48 @@ impl_from_ocaml_record! {
 impl_from_ocaml_record! {
     JsonRpcResponse {
         body: OCamlBytes,
+    }
+}
+
+impl_from_ocaml_variant!{
+    RpcResponse {
+        RpcResponse::RPCConflict(s: Option<OCamlBytes>),
+        RpcResponse::RPCCreated(s: Option<OCamlBytes>),
+        RpcResponse::RPCError(s: Option<OCamlBytes>),
+        RpcResponse::RPCForbidden(s: Option<OCamlBytes>),
+        RpcResponse::RPCGone(s: Option<OCamlBytes>),
+        RpcResponse::RPCNotContent,
+        RpcResponse::RPCNotFound(s: Option<OCamlBytes>),
+        RpcResponse::RPCOk(s: OCamlBytes),
+        RpcResponse::RPCUnauthorized,
+    }
+}
+
+impl_from_ocaml_variant!{
+    RpcError {
+        RpcError::RPCErrorCannotParseBody(s: OCamlBytes),
+        RpcError::RPCErrorCannotParsePath(p: OCamlList<OCamlBytes>, d: RpcArgDesc, s: OCamlBytes),
+        RpcError::RPCErrorCannotParseQuery(s: OCamlBytes),
+        RpcError::RPCErrorInvalidMethodString(s: OCamlBytes),
+        RpcError::RPCErrorMethodNotAllowed(m: OCamlList<RpcMethod>),
+        RpcError::RPCErrorNotFound(key: OCamlBytes),
+    }
+}
+
+impl_from_ocaml_record!{
+    RpcArgDesc {
+        name: OCamlBytes,
+        descr: Option<OCamlBytes>,
+    }
+}
+
+impl_from_ocaml_variant!{
+    RpcMethod {
+        RpcMethod::DELETE,
+        RpcMethod::GET,
+        RpcMethod::PATCH,
+        RpcMethod::POST,
+        RpcMethod::PUT,
     }
 }
 

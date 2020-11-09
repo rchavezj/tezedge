@@ -119,7 +119,7 @@ fn main() {
 
 mod tezos {
     use crypto::hash::{ChainId, ContextHash, ProtocolHash};
-    use tezos_api::ffi::{ApplyBlockError, ApplyBlockRequest, ApplyBlockResponse, BeginConstructionError, BeginConstructionRequest, CommitGenesisResult, ComputePathError, ComputePathRequest, ComputePathResponse, GenesisChain, GetDataError, InitProtocolContextResult, JsonRpcResponse, PatchContext, PrevalidatorWrapper, ProtocolJsonRpcRequest, ProtocolOverrides, ProtocolRpcError, TezosRuntimeConfiguration, TezosRuntimeConfigurationError, TezosStorageInitError, ValidateOperationError, ValidateOperationRequest, ValidateOperationResponse};
+    use tezos_api::ffi::{ApplyBlockError, ApplyBlockRequest, ApplyBlockResponse, BeginConstructionError, BeginConstructionRequest, CommitGenesisResult, ComputePathError, ComputePathRequest, ComputePathResponse, GenesisChain, GetDataError, InitProtocolContextResult, JsonRpcResponse, PatchContext, PrevalidatorWrapper, ProtocolJsonRpcRequest, ProtocolOverrides, ProtocolRpcError, RpcResponse, TezosRuntimeConfiguration, TezosRuntimeConfigurationError, TezosStorageInitError, ValidateOperationError, ValidateOperationRequest, ValidateOperationResponse};
     use tezos_client::client::{apply_block, begin_construction, call_protocol_json_rpc, change_runtime_configuration, compute_path, genesis_result_data, helpers_preapply_block, helpers_preapply_operations, init_protocol_context, validate_operation};
     use tezos_wrapper::protocol::ProtocolApi;
 
@@ -139,7 +139,11 @@ mod tezos {
         }
 
         fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> Result<JsonRpcResponse, ProtocolRpcError> {
-            call_protocol_json_rpc(request)
+            match call_protocol_json_rpc(request) {
+                | Ok(RpcResponse::RPCOk(body)) => Ok(JsonRpcResponse { body }),
+                | Ok(r) => panic!("unexpected RpcResponse: {:?}", r),
+                | Err(err) => Err(err)
+            }
         }
 
         fn helpers_preapply_operations(request: ProtocolJsonRpcRequest) -> Result<JsonRpcResponse, ProtocolRpcError> {

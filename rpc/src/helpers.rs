@@ -398,13 +398,13 @@ impl NodeVersion {
 }
 
 /// Return block level based on block_id url parameter
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `block_id` - Url parameter block_id.
 /// * `persistent_storage` - Persistent storage handler.
 /// * `state` - Current RPC collected state (head).
-/// 
+///
 /// If block_id is head return current head level
 /// If block_id is level then return level as i64
 /// if block_id is block hash string return level from BlockMetaStorage by block hash string
@@ -431,11 +431,11 @@ pub(crate) fn get_level_by_block_id(block_id: &str, persistent_storage: &Persist
 
 /// Get block has bytes from block hash or block level
 /// # Arguments
-/// 
+///
 /// * `block_id` - Url parameter block_id.
 /// * `persistent_storage` - Persistent storage handler.
 /// * `state` - Current RPC collected state (head).
-/// 
+///
 /// If block_id is head return block hash byte string from current RpcCollectedStateRef
 /// If block_id is level then return block hash byte string from BlockStorage by level
 /// if block_id is block hash string return block hash byte string from BlockStorage by block hash string
@@ -480,9 +480,9 @@ pub(crate) fn get_action_types(action_types: &str) -> Vec<ContextActionType> {
 }
 
 /// Return block timestamp in epoch time format by block level
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `level` - Level of block.
 /// * `state` - Current RPC state (head).
 pub(crate) fn get_block_timestamp_by_level(level: i32, persistent_storage: &PersistentStorage) -> Result<i64, failure::Error> {
@@ -569,11 +569,15 @@ pub(crate) fn current_time_timestamp() -> TimeStamp {
 
 pub(crate) async fn create_ffi_json_request(req: Request<Body>) -> Result<JsonRpcRequest, failure::Error> {
     let context_path = req.uri().path_and_query().unwrap().as_str().to_string();
+    let meth = req.method().to_string();
+    let content_type = None; // TODO: get from request
     let body = hyper::body::to_bytes(req.into_body()).await?;
     let body = String::from_utf8(body.to_vec())?;
 
     Ok(JsonRpcRequest {
         body,
         context_path: String::from(context_path.trim_end_matches("/")),
+        meth,
+        content_type,
     })
 }

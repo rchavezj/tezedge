@@ -7,14 +7,14 @@ use super::{
     OCamlProtocolHash, TaggedHash,
 };
 use crate::ffi::{
-    ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest, FfiRpcService,
+    ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest,
     ForkingTestchainData, JsonRpcRequest, PrevalidatorWrapper, ProtocolJsonRpcRequest,
     ValidateOperationRequest,
 };
 use crypto::hash::{BlockHash, ContextHash, Hash, OperationListListHash, ProtocolHash};
 use tezos_messages::p2p::encoding::prelude::{BlockHeader, Operation};
 use ocaml_interop::{
-    impl_to_ocaml_record, impl_to_ocaml_variant, ocaml_alloc_record, ocaml_alloc_variant,
+    impl_to_ocaml_record, ocaml_alloc_record, ocaml_alloc_variant,
     OCamlAllocResult, OCamlAllocToken, OCamlBytes, OCamlInt, OCamlInt32, OCamlInt64, OCamlList,
     ToOCaml,
 };
@@ -171,18 +171,7 @@ impl_to_ocaml_record! {
         body: OCamlBytes,
         context_path: OCamlBytes,
         meth: OCamlBytes,
-    }
-}
-
-impl_to_ocaml_variant! {
-    FfiRpcService {
-        FfiRpcService::HelpersRunOperation,
-        FfiRpcService::HelpersPreapplyOperations,
-        FfiRpcService::HelpersPreapplyBlock,
-        FfiRpcService::HelpersCurrentLevel,
-        FfiRpcService::DelegatesMinimalValidTime,
-        FfiRpcService::HelpersForgeOperations,
-        FfiRpcService::ContextContract,
+        content_type: Option<OCamlBytes>,
     }
 }
 
@@ -192,7 +181,6 @@ impl_to_ocaml_record! {
         chain_id: OCamlBytes,
         chain_arg: OCamlBytes,
         request: JsonRpcRequest,
-        ffi_service: FfiRpcService,
     }
 }
 

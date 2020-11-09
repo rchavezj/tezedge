@@ -8,7 +8,7 @@ use std::fmt::Debug;
 
 use derive_builder::Builder;
 use failure::Fail;
-use ocaml_interop::{OCamlBytes, OCamlError, OCamlList, ToRust, impl_from_ocaml_record, impl_from_ocaml_variant};
+use ocaml_interop::OCamlError;
 use serde::{Deserialize, Serialize};
 
 use crypto::hash::{BlockHash, ChainId, ContextHash, HashType, OperationHash, ProtocolHash};
@@ -563,6 +563,7 @@ pub struct JsonRpcRequest {
     pub body: Json,
     pub context_path: String,
     pub meth: String,
+    pub content_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
@@ -583,46 +584,15 @@ pub enum RpcResponse {
     RPCUnauthorized,
 }
 
-impl_from_ocaml_variant!{
-    RpcResponse {
-        RpcResponse::RPCConflict(s: Option<OCamlBytes>),
-        RpcResponse::RPCCreated(s: Option<OCamlBytes>),
-        RpcResponse::RPCError(s: Option<OCamlBytes>),
-        RpcResponse::RPCForbidden(s: Option<OCamlBytes>),
-        RpcResponse::RPCGone(s: Option<OCamlBytes>),
-        RpcResponse::RPCNotContent,
-        RpcResponse::RPCNotFound(s: Option<OCamlBytes>),
-        RpcResponse::RPCOk(s: OCamlBytes),
-        RpcResponse::RPCUnauthorized,
-    }
-}
-
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum RpcMethod {
     DELETE, GET, PATCH, POST, PUT
 }
 
-impl_from_ocaml_variant!{
-    RpcMethod {
-        RpcMethod::DELETE,
-        RpcMethod::GET,
-        RpcMethod::PATCH,
-        RpcMethod::POST,
-        RpcMethod::PUT,
-    }
-}
-
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct RpcArgDesc {
-    name: String,
-    descr: Option<String>,
-}
-
-impl_from_ocaml_record!{
-    RpcArgDesc {
-        name: OCamlBytes,
-        descr: Option<OCamlBytes>,
-    }
+    pub name: String,
+    pub descr: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
@@ -635,17 +605,6 @@ pub enum RpcError {
     RPCErrorNotFound(String),
 }
 
-impl_from_ocaml_variant!{
-    RpcError {
-        RpcError::RPCErrorCannotParseBody(s: OCamlBytes),
-        RpcError::RPCErrorCannotParsePath(p: OCamlList<OCamlBytes>, d: RpcArgDesc, s: OCamlBytes),
-        RpcError::RPCErrorCannotParseQuery(s: OCamlBytes),
-        RpcError::RPCErrorInvalidMethodString(s: OCamlBytes),
-        RpcError::RPCErrorMethodNotAllowed(m: OCamlList<RpcMethod>),
-        RpcError::RPCErrorNotFound(key: OCamlBytes),
-    }
-}
-
 #[derive(Serialize, Deserialize, Debug, Clone, Builder, PartialEq)]
 pub struct ProtocolJsonRpcRequest {
     pub block_header: BlockHeader,
@@ -653,20 +612,6 @@ pub struct ProtocolJsonRpcRequest {
     pub chain_id: ChainId,
 
     pub request: JsonRpcRequest,
-
-    // TODO: TE-140 - will be removed, when router is done
-    pub ffi_service: FfiRpcService,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub enum FfiRpcService {
-    HelpersRunOperation,
-    HelpersPreapplyOperations,
-    HelpersPreapplyBlock,
-    HelpersCurrentLevel,
-    DelegatesMinimalValidTime,
-    HelpersForgeOperations,
-    ContextContract,
 }
 
 #[derive(Serialize, Deserialize, Debug, Fail, PartialEq)]
