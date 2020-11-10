@@ -581,3 +581,23 @@ pub(crate) async fn create_ffi_json_request(req: Request<Body>) -> Result<JsonRp
         content_type,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // NOTE: safe-guard in case `http` changes to decoding percent-encoding parts of the URI.
+    // If that happens, update or remove this test and update the RPC-router in the OCaml
+    // code so that it doesn't call `Uri.pct_decode` on the URI fragments. Code using the
+    // query part of the URI may have to be updated too.
+    #[test]
+    fn test_pct_not_decoded()  {
+        let req = Request::builder()
+            .uri("http://www.example.com/percent%20encoded?query=percent%20encoded")
+            .body(())
+            .unwrap();
+        let path = req.uri().path_and_query().unwrap().as_str().to_string();
+        let expected = "/percent%20encoded?query=percent%20encoded";
+        assert_eq!(expected, &path);
+    }
+}
