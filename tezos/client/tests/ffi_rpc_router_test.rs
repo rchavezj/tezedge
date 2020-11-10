@@ -91,8 +91,8 @@ fn test_run_operations() -> Result<(), failure::Error> {
 
     // assert result json
     assert_json_eq!(
-        serde_json::from_str(&extract_body(response))?,
-        serde_json::from_str(&test_data::RUN_OPERTION_RESPONSE)?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&test_data::RUN_OPERTION_RESPONSE)?,
     );
 
     Ok(())
@@ -155,8 +155,8 @@ fn test_forge_operations() -> Result<(), failure::Error> {
 
     // assert result json
     assert_json_eq!(
-        serde_json::from_str(&extract_body(response))?,
-        serde_json::from_str(expected_response)?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(expected_response)?,
     );
 
     Ok(())
@@ -199,8 +199,8 @@ fn test_context_contract() -> Result<(), failure::Error> {
 
     // assert result json
     assert_json_eq!(
-        serde_json::from_str(&extract_body(response))?,
-        serde_json::from_str(expected_response)?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(expected_response)?,
     );
 
     Ok(())
@@ -267,8 +267,8 @@ fn test_current_level_call() -> Result<(), failure::Error> {
     let response = client::call_protocol_json_rpc(request)?;
 
     assert_json_eq!(
-        serde_json::from_str(&extract_body(response))?,
-        serde_json::from_str(&test_data::CURRENT_LEVEL_RESPONSE)?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&test_data::CURRENT_LEVEL_RESPONSE)?,
     );
 
     Ok(())
@@ -298,8 +298,8 @@ fn test_minimal_valid_time() -> Result<(), failure::Error> {
     let response = client::call_protocol_json_rpc(request)?;
 
     assert_json_eq!(
-        serde_json::from_str(&extract_body(response))?,
-        serde_json::from_str(&test_data::MINIMAL_VALID_TIME_RESPONSE)?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&test_data::MINIMAL_VALID_TIME_RESPONSE)?,
     );
 
     Ok(())
