@@ -54,10 +54,10 @@ fn init_test_protocol_context(dir_name: &str) -> (ChainId, BlockHeader, Protocol
     )
 }
 
-fn extract_body(r: RpcResponse) -> String {
+fn extract_body(r: RpcResponse) -> Result<String, failure::Error> {
     match r {
-        RpcResponse::RPCOk(body) => body,
-        _ => "something else".to_owned()
+        RpcResponse::RPCOk(body) => Ok(body),
+        other => Err(failure::err_msg(format!("Expecter RPCOk, instead got {:?}", other))),
     }
 }
 
@@ -91,7 +91,7 @@ fn test_run_operations() -> Result<(), failure::Error> {
 
     // assert result json
     assert_json_eq!(
-        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response)?)?,
         serde_json::from_str::<serde_json::Value>(&test_data::RUN_OPERTION_RESPONSE)?,
     );
 
@@ -155,7 +155,7 @@ fn test_forge_operations() -> Result<(), failure::Error> {
 
     // assert result json
     assert_json_eq!(
-        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response)?)?,
         serde_json::from_str::<serde_json::Value>(expected_response)?,
     );
 
@@ -199,7 +199,7 @@ fn test_context_contract() -> Result<(), failure::Error> {
 
     // assert result json
     assert_json_eq!(
-        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response)?)?,
         serde_json::from_str::<serde_json::Value>(expected_response)?,
     );
 
@@ -267,7 +267,7 @@ fn test_current_level_call() -> Result<(), failure::Error> {
     let response = client::call_protocol_json_rpc(request)?;
 
     assert_json_eq!(
-        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response)?)?,
         serde_json::from_str::<serde_json::Value>(&test_data::CURRENT_LEVEL_RESPONSE)?,
     );
 
@@ -298,7 +298,7 @@ fn test_minimal_valid_time() -> Result<(), failure::Error> {
     let response = client::call_protocol_json_rpc(request)?;
 
     assert_json_eq!(
-        serde_json::from_str::<serde_json::Value>(&extract_body(response))?,
+        serde_json::from_str::<serde_json::Value>(&extract_body(response)?)?,
         serde_json::from_str::<serde_json::Value>(&test_data::MINIMAL_VALID_TIME_RESPONSE)?,
     );
 
