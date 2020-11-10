@@ -8,17 +8,7 @@ use ocaml_interop::{
 };
 use serial_test::serial;
 
-use tezos_api::{
-    ffi::{ApplyBlockRequest, ApplyBlockRequestBuilder},
-    ffi::BeginConstructionRequest,
-    ffi::JsonRpcRequest,
-    ffi::PrevalidatorWrapper,
-    ffi::ProtocolJsonRpcRequest,
-    ffi::RustBytes,
-    ffi::ValidateOperationRequest,
-    ocaml_conv::FfiBlockHeader,
-    ocaml_conv::FfiOperation,
-};
+use tezos_api::{ffi::{ApplyBlockRequest, ApplyBlockRequestBuilder}, ffi::BeginConstructionRequest, ffi::JsonRpcRequest, ffi::PrevalidatorWrapper, ffi::ProtocolJsonRpcRequest, ffi::RustBytes, ffi::ValidateOperationRequest, ocaml_conv::FfiBlockHeader, ocaml_conv::FfiOperation, ffi::RpcMethod};
 use tezos_interop::runtime;
 use tezos_messages::p2p::{
     binary_message::BinaryMessage, encoding::block_header::BlockHeader, encoding::operation::Operation,
@@ -37,12 +27,7 @@ const MAX_OPERATIONS_TTL: i32 = 5;
 mod tezos_ffi {
     use ocaml_interop::{ocaml, OCamlBytes, OCamlInt, OCamlInt32, OCamlInt64, OCamlList};
 
-    use tezos_api::{
-        ffi::ApplyBlockRequest, ffi::BeginConstructionRequest,
-        ffi::JsonRpcRequest, ffi::PrevalidatorWrapper, ffi::ProtocolJsonRpcRequest,
-        ffi::ValidateOperationRequest, ocaml_conv::OCamlBlockHash, ocaml_conv::OCamlContextHash,
-        ocaml_conv::OCamlOperationHash, ocaml_conv::OCamlProtocolHash,
-    };
+    use tezos_api::{ffi::ApplyBlockRequest, ffi::BeginConstructionRequest, ffi::JsonRpcRequest, ffi::PrevalidatorWrapper, ffi::ProtocolJsonRpcRequest, ffi::ValidateOperationRequest, ocaml_conv::OCamlBlockHash, ocaml_conv::OCamlContextHash, ocaml_conv::OCamlOperationHash, ocaml_conv::OCamlProtocolHash, ffi::RpcMethod};
     use tezos_messages::p2p::encoding::prelude::{BlockHeader, Operation};
 
     ocaml! {
@@ -84,7 +69,7 @@ mod tezos_ffi {
             json_rpc_request: JsonRpcRequest,
             body: OCamlBytes,
             context_path: OCamlBytes,
-            meth: OCamlBytes,
+            meth: RpcMethod,
             content_type: Option<OCamlBytes>,
         ) -> bool;
         pub fn construct_and_compare_protocol_json_rpc_request(
@@ -330,7 +315,7 @@ fn test_validate_json_rpc_request_conv() {
     let json_rpc_request = JsonRpcRequest {
         body: "body of json request".to_owned(),
         context_path: "/context/path/string".to_owned(),
-        meth: "GET".to_owned(),
+        meth: RpcMethod::GET,
         content_type: None,
     };
     let result: bool = runtime::execute(move || {
@@ -362,7 +347,7 @@ fn test_validate_protocol_json_rpc_request_conv() {
     let json_rpc_request = JsonRpcRequest {
         body: "body of json request".to_owned(),
         context_path: "/context/path/string".to_owned(),
-        meth: "GET".to_owned(),
+        meth: RpcMethod::GET,
         content_type: None,
     };
     let protocol_json_rpc_request = ProtocolJsonRpcRequest {

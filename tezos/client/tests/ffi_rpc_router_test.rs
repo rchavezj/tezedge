@@ -5,7 +5,7 @@ use assert_json_diff::assert_json_eq;
 use serial_test::serial;
 
 use crypto::hash::{ChainId, ProtocolHash};
-use tezos_api::{ffi::RpcResponse, environment::{OPERATION_LIST_LIST_HASH_EMPTY, TEZOS_ENV, TezosEnvironmentConfiguration}};
+use tezos_api::{environment::{OPERATION_LIST_LIST_HASH_EMPTY, TEZOS_ENV, TezosEnvironmentConfiguration}, ffi::{RpcMethod, RpcResponse}};
 use tezos_api::ffi::{ApplyBlockRequest, ComputePathRequest, ComputePathResponse, InitProtocolContextResult, JsonRpcRequest, ProtocolJsonRpcRequest, TezosRuntimeConfiguration};
 use tezos_client::client;
 use tezos_messages::p2p::binary_message::{BinaryMessage, MessageHash};
@@ -83,7 +83,7 @@ fn test_run_operations() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/head/helpers/scripts/run_operation".to_string(),
             body: request.to_string(),
-            meth: "POST".to_owned(),
+            meth: RpcMethod::POST,
             content_type: None,
         },
     };
@@ -147,7 +147,7 @@ fn test_forge_operations() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/head/helpers/forge/operations".to_string(),
             body: request.to_string(),
-            meth: "POST".to_owned(),
+            meth: RpcMethod::POST,
             content_type: None,
         },
     };
@@ -191,7 +191,7 @@ fn test_context_contract() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/head/context/contracts/tz1PirboZKFVqkfE45hVLpkpXaZtLk3mqC17".to_string(),
             body: request.to_string(),
-            meth: "GET".to_owned(),
+            meth: RpcMethod::GET,
             content_type: None,
         },
     };
@@ -228,7 +228,7 @@ fn test_preapply_operations() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/head/helpers/preapply/operations".to_string(),
             body: request.to_string(),
-            meth: "GET".to_owned(),
+            meth: RpcMethod::GET,
             content_type: None,
         },
     };
@@ -259,7 +259,7 @@ fn test_current_level_call() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/head/helpers/current_level?offset=1".to_string(),
             body: "".to_string(),
-            meth: "GET".to_owned(),
+            meth: RpcMethod::GET,
             content_type: None,
         },
     };
@@ -290,7 +290,7 @@ fn test_minimal_valid_time() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/head/minimal_valid_time?priority=4&endorsing_power=0".to_string(),
             body: "".to_string(),
-            meth: "GET".to_owned(),
+            meth: RpcMethod::GET,
             content_type: None,
         },
     };
@@ -356,7 +356,7 @@ fn test_preapply_block() -> Result<(), failure::Error> {
         request: JsonRpcRequest {
             context_path: "/chains/main/blocks/genesis/helpers/preapply/block?timestamp=1592985768".to_string(),
             body: request.to_string(),
-            meth: "GET".to_owned(),
+            meth: RpcMethod::GET,
             content_type: None,
         },
     };

@@ -4,7 +4,7 @@
 use super::{
     FfiPath, OCamlBlockHash, OCamlContextHash, OCamlHash, OCamlOperationHash, OCamlProtocolHash,
 };
-use crate::ffi::{Applied, ApplyBlockResponse, Errored, ForkingTestchainData, JsonRpcResponse, OperationProtocolDataJsonWithErrorListJson, PrevalidatorWrapper, RpcArgDesc, RpcError, RpcMethod, RpcResponse, ValidateOperationResponse, ValidateOperationResult};
+use crate::ffi::{Applied, ApplyBlockResponse, Errored, ForkingTestchainData, HelpersPreapplyResponse, OperationProtocolDataJsonWithErrorListJson, PrevalidatorWrapper, RpcArgDesc, RpcError, RpcMethod, RpcResponse, ValidateOperationResponse, ValidateOperationResult};
 use crypto::hash::{BlockHash, ContextHash, Hash, OperationHash, ProtocolHash};
 use tezos_messages::p2p::encoding::operations_for_blocks::{Path, PathLeft, PathRight};
 use ocaml_interop::{
@@ -96,7 +96,7 @@ impl_from_ocaml_record! {
 }
 
 impl_from_ocaml_record! {
-    JsonRpcResponse {
+    HelpersPreapplyResponse {
         body: OCamlBytes,
     }
 }
@@ -122,7 +122,7 @@ impl_from_ocaml_variant!{
         RpcError::RPCErrorCannotParseQuery(s: OCamlBytes),
         RpcError::RPCErrorInvalidMethodString(s: OCamlBytes),
         RpcError::RPCErrorMethodNotAllowed(m: OCamlList<RpcMethod>),
-        RpcError::RPCErrorNotFound(key: OCamlBytes),
+        RpcError::RPCErrorServiceNotFound,
     }
 }
 

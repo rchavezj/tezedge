@@ -3,7 +3,7 @@
 
 /// Rust implementation of messages required for Rust <-> OCaml FFI communication.
 
-use std::fmt;
+use std::{convert::TryFrom, fmt};
 use std::fmt::Debug;
 
 use derive_builder::Builder;
@@ -562,12 +562,12 @@ pub type Json = String;
 pub struct JsonRpcRequest {
     pub body: Json,
     pub context_path: String,
-    pub meth: String,
+    pub meth: RpcMethod,
     pub content_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct JsonRpcResponse {
+pub struct HelpersPreapplyResponse {
     pub body: Json
 }
 
@@ -586,7 +586,27 @@ pub enum RpcResponse {
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum RpcMethod {
-    DELETE, GET, PATCH, POST, PUT
+    DELETE,
+    GET,
+    PATCH,
+    POST,
+    PUT,
+}
+
+impl TryFrom<&str> for RpcMethod {
+    type Error = &'static str;
+
+    fn try_from(s: &str) -> Result<Self, Self::Error> {
+        let upper = s.to_uppercase();
+        match upper.as_ref() {
+            "DELETE" => Ok(RpcMethod::DELETE),
+            "GET" => Ok(RpcMethod::GET),
+            "PATCH" => Ok(RpcMethod::PATCH),
+            "POST" => Ok(RpcMethod::POST),
+            "PUT" => Ok(RpcMethod::PUT),
+            _ => Err("Invalid RPC method"),
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
@@ -595,14 +615,22 @@ pub struct RpcArgDesc {
     pub descr: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Fail, Clone, PartialEq)]
 pub enum RpcError {
+    #[fail(display = "RPC: cannot parse body: {}", _0)]
     RPCErrorCannotParseBody(String),
+    #[fail(display = "RPC: cannot parse path: {:?}, arg_desc={:?}, message: {}", _0, _1, _2)]
     RPCErrorCannotParsePath(Vec<String>, RpcArgDesc, String),
+    #[fail(display = "RPC: cannot parse query: {}", _0)]
     RPCErrorCannotParseQuery(String),
+    #[fail(display = "RPC: invalid method string: {}", _0)]
     RPCErrorInvalidMethodString(String),
+    #[fail(display = "RPC: method not allowed: {:?}", _0)]
     RPCErrorMethodNotAllowed(Vec<RpcMethod>),
-    RPCErrorNotFound(String),
+    #[fail(display = "RPC: service not found")]
+    RPCErrorServiceNotFound,
+    #[fail(display = "RPC: Failed to call protocol RPC - message: {}!", _0)]
+    FailedToCallProtocolRpc(String),
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Builder, PartialEq)]
@@ -615,7 +643,7 @@ pub struct ProtocolJsonRpcRequest {
 }
 
 #[derive(Serialize, Deserialize, Debug, Fail, PartialEq)]
-pub enum ProtocolRpcError {
+pub enum HelpersPreapplyError {
     #[fail(display = "Failed to call protocol rpc - message: {}!", message)]
     FailedToCallProtocolRpc {
         message: String,
@@ -630,25 +658,25 @@ pub enum ProtocolRpcError {
     },
 }
 
-impl From<CallError> for ProtocolRpcError {
+impl From<CallError> for HelpersPreapplyError {
     fn from(error: CallError) -> Self {
         match error {
             CallError::FailedToCall { parsed_error_message } => {
                 match parsed_error_message {
-                    None => ProtocolRpcError::FailedToCallProtocolRpc {
+                    None => HelpersPreapplyError::FailedToCallProtocolRpc {
                         message: "unknown".to_string()
                     },
                     Some(message) => {
-                        ProtocolRpcError::FailedToCallProtocolRpc {
+                        HelpersPreapplyError::FailedToCallProtocolRpc {
                             message
                         }
                     }
                 }
             }
-            CallError::InvalidRequestData { message } => ProtocolRpcError::InvalidRequestData {
+            CallError::InvalidRequestData { message } => HelpersPreapplyError::InvalidRequestData {
                 message
             },
-            CallError::InvalidResponseData { message } => ProtocolRpcError::InvalidResponseData {
+            CallError::InvalidResponseData { message } => HelpersPreapplyError::InvalidResponseData {
                 message
             },
         }

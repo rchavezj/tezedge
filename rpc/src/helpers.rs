@@ -1,7 +1,7 @@
 // Copyright (c) SimpleStaking and Tezedge Contributors
 // SPDX-License-Identifier: MIT
 
-use std::collections::HashMap;
+use std::{collections::HashMap, convert::TryFrom};
 use std::convert::TryInto;
 use std::pin::Pin;
 
@@ -19,7 +19,7 @@ use storage::{BlockMetaStorage, BlockStorage, BlockStorageReader, context_key};
 use storage::context::{ContextApi, TezedgeContext};
 use storage::context_action_storage::ContextActionType;
 use storage::persistent::PersistentStorage;
-use tezos_api::ffi::JsonRpcRequest;
+use tezos_api::ffi::{JsonRpcRequest, RpcMethod};
 use tezos_messages::p2p::encoding::prelude::*;
 use tezos_messages::ts_to_rfc3339;
 
@@ -569,7 +569,7 @@ pub(crate) fn current_time_timestamp() -> TimeStamp {
 
 pub(crate) async fn create_ffi_json_request(req: Request<Body>) -> Result<JsonRpcRequest, failure::Error> {
     let context_path = req.uri().path_and_query().unwrap().as_str().to_string();
-    let meth = req.method().to_string();
+    let meth = RpcMethod::try_from(req.method().to_string().as_str()).unwrap(); // TODO: handle correctly
     let content_type = None; // TODO: get from request
     let body = hyper::body::to_bytes(req.into_body()).await?;
     let body = String::from_utf8(body.to_vec())?;

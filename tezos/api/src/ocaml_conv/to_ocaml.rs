@@ -6,18 +6,10 @@ use super::{
     OCamlBlockHash, OCamlContextHash, OCamlHash, OCamlOperationHash, OCamlOperationListListHash,
     OCamlProtocolHash, TaggedHash,
 };
-use crate::ffi::{
-    ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest,
-    ForkingTestchainData, JsonRpcRequest, PrevalidatorWrapper, ProtocolJsonRpcRequest,
-    ValidateOperationRequest,
-};
+use crate::ffi::{ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest, ForkingTestchainData, JsonRpcRequest, PrevalidatorWrapper, ProtocolJsonRpcRequest, RpcMethod, ValidateOperationRequest};
 use crypto::hash::{BlockHash, ContextHash, Hash, OperationListListHash, ProtocolHash};
 use tezos_messages::p2p::encoding::prelude::{BlockHeader, Operation};
-use ocaml_interop::{
-    impl_to_ocaml_record, ocaml_alloc_record, ocaml_alloc_variant,
-    OCamlAllocResult, OCamlAllocToken, OCamlBytes, OCamlInt, OCamlInt32, OCamlInt64, OCamlList,
-    ToOCaml,
-};
+use ocaml_interop::{OCamlAllocResult, OCamlAllocToken, OCamlBytes, OCamlInt, OCamlInt32, OCamlInt64, OCamlList, ToOCaml, impl_to_ocaml_record, impl_to_ocaml_variant, ocaml_alloc_record, ocaml_alloc_variant};
 
 // OCaml type tags
 
@@ -170,8 +162,18 @@ impl_to_ocaml_record! {
     JsonRpcRequest {
         body: OCamlBytes,
         context_path: OCamlBytes,
-        meth: OCamlBytes,
+        meth: RpcMethod,
         content_type: Option<OCamlBytes>,
+    }
+}
+
+impl_to_ocaml_variant!{
+    RpcMethod {
+        RpcMethod::DELETE,
+        RpcMethod::GET,
+        RpcMethod::PATCH,
+        RpcMethod::POST,
+        RpcMethod::PUT,
     }
 }
 
