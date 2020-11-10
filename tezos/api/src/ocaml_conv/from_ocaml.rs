@@ -4,7 +4,7 @@
 use super::{
     FfiPath, OCamlBlockHash, OCamlContextHash, OCamlHash, OCamlOperationHash, OCamlProtocolHash,
 };
-use crate::ffi::{Applied, ApplyBlockResponse, Errored, ForkingTestchainData, HelpersPreapplyResponse, OperationProtocolDataJsonWithErrorListJson, PrevalidatorWrapper, RpcArgDesc, RpcError, RpcMethod, RpcResponse, ValidateOperationResponse, ValidateOperationResult};
+use crate::ffi::{Applied, ApplyBlockResponse, Errored, ForkingTestchainData, HelpersPreapplyResponse, OperationProtocolDataJsonWithErrorListJson, PrevalidatorWrapper, RpcArgDesc, ProtocolRpcError, RpcMethod, ProtocolRpcResponse, ValidateOperationResponse, ValidateOperationResult};
 use crypto::hash::{BlockHash, ContextHash, Hash, OperationHash, ProtocolHash};
 use tezos_messages::p2p::encoding::operations_for_blocks::{Path, PathLeft, PathRight};
 use ocaml_interop::{
@@ -102,27 +102,27 @@ impl_from_ocaml_record! {
 }
 
 impl_from_ocaml_variant!{
-    RpcResponse {
-        RpcResponse::RPCConflict(s: Option<OCamlBytes>),
-        RpcResponse::RPCCreated(s: Option<OCamlBytes>),
-        RpcResponse::RPCError(s: Option<OCamlBytes>),
-        RpcResponse::RPCForbidden(s: Option<OCamlBytes>),
-        RpcResponse::RPCGone(s: Option<OCamlBytes>),
-        RpcResponse::RPCNotContent,
-        RpcResponse::RPCNotFound(s: Option<OCamlBytes>),
-        RpcResponse::RPCOk(s: OCamlBytes),
-        RpcResponse::RPCUnauthorized,
+    ProtocolRpcResponse {
+        ProtocolRpcResponse::RPCConflict(s: Option<OCamlBytes>),
+        ProtocolRpcResponse::RPCCreated(s: Option<OCamlBytes>),
+        ProtocolRpcResponse::RPCError(s: Option<OCamlBytes>),
+        ProtocolRpcResponse::RPCForbidden(s: Option<OCamlBytes>),
+        ProtocolRpcResponse::RPCGone(s: Option<OCamlBytes>),
+        ProtocolRpcResponse::RPCNotContent,
+        ProtocolRpcResponse::RPCNotFound(s: Option<OCamlBytes>),
+        ProtocolRpcResponse::RPCOk(s: OCamlBytes),
+        ProtocolRpcResponse::RPCUnauthorized,
     }
 }
 
 impl_from_ocaml_variant!{
-    RpcError {
-        RpcError::RPCErrorCannotParseBody(s: OCamlBytes),
-        RpcError::RPCErrorCannotParsePath(p: OCamlList<OCamlBytes>, d: RpcArgDesc, s: OCamlBytes),
-        RpcError::RPCErrorCannotParseQuery(s: OCamlBytes),
-        RpcError::RPCErrorInvalidMethodString(s: OCamlBytes),
-        RpcError::RPCErrorMethodNotAllowed(m: OCamlList<RpcMethod>),
-        RpcError::RPCErrorServiceNotFound,
+    ProtocolRpcError {
+        ProtocolRpcError::RPCErrorCannotParseBody(s: OCamlBytes),
+        ProtocolRpcError::RPCErrorCannotParsePath(p: OCamlList<OCamlBytes>, d: RpcArgDesc, s: OCamlBytes),
+        ProtocolRpcError::RPCErrorCannotParseQuery(s: OCamlBytes),
+        ProtocolRpcError::RPCErrorInvalidMethodString(s: OCamlBytes),
+        ProtocolRpcError::RPCErrorMethodNotAllowed(m: OCamlList<RpcMethod>),
+        ProtocolRpcError::RPCErrorServiceNotFound,
     }
 }
 

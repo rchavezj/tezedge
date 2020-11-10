@@ -572,7 +572,7 @@ pub struct HelpersPreapplyResponse {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub enum RpcResponse {
+pub enum ProtocolRpcResponse {
     RPCConflict(Option<String>),
     RPCCreated(Option<String>),
     RPCError(Option<String>),
@@ -616,7 +616,7 @@ pub struct RpcArgDesc {
 }
 
 #[derive(Serialize, Deserialize, Debug, Fail, Clone, PartialEq)]
-pub enum RpcError {
+pub enum ProtocolRpcError {
     #[fail(display = "RPC: cannot parse body: {}", _0)]
     RPCErrorCannotParseBody(String),
     #[fail(display = "RPC: cannot parse path: {:?}, arg_desc={:?}, message: {}", _0, _1, _2)]

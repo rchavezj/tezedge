@@ -21,7 +21,7 @@ use crypto::hash::HashType;
 use storage::{BlockStorage, BlockStorageReader, context_key, num_from_slice};
 use storage::context::{ContextApi, TezedgeContext};
 use storage::persistent::PersistentStorage;
-use tezos_api::ffi::{JsonRpcRequest, ProtocolJsonRpcRequest, RpcResponse};
+use tezos_api::ffi::{JsonRpcRequest, ProtocolJsonRpcRequest, ProtocolRpcResponse};
 use tezos_messages::base::signature_public_key_hash::SignaturePublicKeyHash;
 use tezos_messages::protocol::{
     proto_001 as proto_001_constants,
@@ -425,9 +425,9 @@ pub(crate) fn proto_get_contract_manager_key(
 }
 
 // TODO: TE-220, be more explicit about the kind of response from the RPC service
-fn handle_rpc_response(response: &RpcResponse) -> Result<serde_json::value::Value, failure::Error> {
+fn handle_rpc_response(response: &ProtocolRpcResponse) -> Result<serde_json::value::Value, failure::Error> {
     match response {
-        RpcResponse::RPCOk(body) => Ok(serde_json::from_str(&body)?),
+        ProtocolRpcResponse::RPCOk(body) => Ok(serde_json::from_str(&body)?),
         other => Err(failure::err_msg(format!("Got non-OK response from protocol-RPC service: {:?}", other))),
     }
 }

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 use crypto::hash::{ChainId, ContextHash, ProtocolHash};
-use tezos_api::ffi::{ApplyBlockError, ApplyBlockRequest, ApplyBlockResponse, BeginConstructionError, BeginConstructionRequest, CommitGenesisResult, ComputePathError, ComputePathRequest, ComputePathResponse, ContextDataError, GenesisChain, GetDataError, HelpersPreapplyError, HelpersPreapplyResponse, InitProtocolContextResult, PatchContext, PrevalidatorWrapper, ProtocolJsonRpcRequest, ProtocolOverrides, RpcError, RpcResponse, TezosRuntimeConfiguration, TezosRuntimeConfigurationError, TezosStorageInitError, ValidateOperationError, ValidateOperationRequest, ValidateOperationResponse};
+use tezos_api::ffi::{ApplyBlockError, ApplyBlockRequest, ApplyBlockResponse, BeginConstructionError, BeginConstructionRequest, CommitGenesisResult, ComputePathError, ComputePathRequest, ComputePathResponse, ContextDataError, GenesisChain, GetDataError, HelpersPreapplyError, HelpersPreapplyResponse, InitProtocolContextResult, PatchContext, PrevalidatorWrapper, ProtocolJsonRpcRequest, ProtocolOverrides, ProtocolRpcError, ProtocolRpcResponse, TezosRuntimeConfiguration, TezosRuntimeConfigurationError, TezosStorageInitError, ValidateOperationError, ValidateOperationRequest, ValidateOperationResponse};
 use tezos_interop::ffi;
 
 /// Override runtime configuration for OCaml runtime
@@ -104,11 +104,11 @@ pub fn validate_operation(request: ValidateOperationRequest) -> Result<ValidateO
 }
 
 /// Call protocol json rpc - general service
-pub fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> Result<RpcResponse, RpcError> {
+pub fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> Result<ProtocolRpcResponse, ProtocolRpcError> {
     match ffi::call_protocol_rpc(request) {
         Ok(result) => result,
         Err(e) => {
-            Err(RpcError::FailedToCallProtocolRpc(format!("Unknown OcamlError: {:?}", e)))
+            Err(ProtocolRpcError::FailedToCallProtocolRpc(format!("Unknown OcamlError: {:?}", e)))
         }
     }
 }

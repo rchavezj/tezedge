@@ -17,9 +17,9 @@ mod tezos_ffi {
     use ocaml_interop::{ocaml, OCamlBytes, OCamlInt, OCamlInt32, OCamlList};
     use tezos_api::{
         ffi::{
-            ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest, RpcResponse,
+            ApplyBlockRequest, ApplyBlockResponse, BeginConstructionRequest, ProtocolRpcResponse,
             PrevalidatorWrapper, ProtocolJsonRpcRequest, ValidateOperationRequest,
-            ValidateOperationResponse, HelpersPreapplyResponse, RpcError
+            ValidateOperationResponse, HelpersPreapplyResponse, ProtocolRpcError
         },
         ocaml_conv::OCamlOperationHash,
     };
@@ -29,7 +29,7 @@ mod tezos_ffi {
         pub fn apply_block(apply_block_request: ApplyBlockRequest) -> ApplyBlockResponse;
         pub fn begin_construction(begin_construction_request: BeginConstructionRequest) -> PrevalidatorWrapper;
         pub fn validate_operation(validate_operation_request: ValidateOperationRequest) -> ValidateOperationResponse;
-        pub fn call_protocol_rpc(request: ProtocolJsonRpcRequest) -> Result<RpcResponse, RpcError>;
+        pub fn call_protocol_rpc(request: ProtocolJsonRpcRequest) -> Result<ProtocolRpcResponse, ProtocolRpcError>;
         pub fn helpers_preapply_operations(request: ProtocolJsonRpcRequest) -> HelpersPreapplyResponse;
         pub fn helpers_preapply_block(request: ProtocolJsonRpcRequest) -> HelpersPreapplyResponse;
         pub fn change_runtime_configuration(
@@ -252,7 +252,7 @@ pub fn validate_operation(
 
 pub fn call_protocol_rpc(
     request: ProtocolJsonRpcRequest,
-) -> Result<Result<RpcResponse, RpcError>, OcamlError> {
+) -> Result<Result<ProtocolRpcResponse, ProtocolRpcError>, OcamlError> {
     runtime::execute(move || {
         ocaml_frame!(gc, {
             let ocaml_request = to_ocaml!(gc, request);

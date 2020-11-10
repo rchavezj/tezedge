@@ -82,7 +82,7 @@ enum NodeMessage {
     ApplyBlockResult(Result<ApplyBlockResponse, ApplyBlockError>),
     BeginConstructionResult(Result<PrevalidatorWrapper, BeginConstructionError>),
     ValidateOperationResponse(Result<ValidateOperationResponse, ValidateOperationError>),
-    JsonRpcResponse(Result<RpcResponse, RpcError>),
+    JsonRpcResponse(Result<ProtocolRpcResponse, ProtocolRpcError>),
     HelpersPreapplyResponse(Result<HelpersPreapplyResponse, HelpersPreapplyError>),
     ChangeRuntimeConfigurationResult(Result<(), TezosRuntimeConfigurationError>),
     InitProtocolContextResult(Result<InitProtocolContextResult, TezosStorageInitError>),
@@ -197,7 +197,7 @@ pub enum ProtocolError {
     },
     #[fail(display = "Protocol rpc call error: {}", reason)]
     ProtocolRpcError {
-        reason: RpcError
+        reason: ProtocolRpcError
     },
     #[fail(display = "Helper Preapply call error: {}", reason)]
     HelpersPreapplyError {
@@ -444,7 +444,7 @@ impl ProtocolController {
     }
 
     /// Call protocol json rpc - internal
-    fn call_protocol_json_rpc_internal(&self, msg: ProtocolMessage) -> Result<RpcResponse, ProtocolServiceError> {
+    fn call_protocol_json_rpc_internal(&self, msg: ProtocolMessage) -> Result<ProtocolRpcResponse, ProtocolServiceError> {
         let mut io = self.io.borrow_mut();
         io.tx.send(&msg)?;
         // this might take a while, so we will use unusually long timeout
@@ -459,7 +459,7 @@ impl ProtocolController {
     }
 
     /// Call protocol json rpc
-    pub fn call_protocol_json_rpc(&self, request: ProtocolJsonRpcRequest) -> Result<RpcResponse, ProtocolServiceError> {
+    pub fn call_protocol_json_rpc(&self, request: ProtocolJsonRpcRequest) -> Result<ProtocolRpcResponse, ProtocolServiceError> {
         self.call_protocol_json_rpc_internal(ProtocolMessage::ProtocolJsonRpcCall(request))
     }
 

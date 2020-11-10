@@ -5,7 +5,7 @@ use assert_json_diff::assert_json_eq;
 use serial_test::serial;
 
 use crypto::hash::{ChainId, ProtocolHash};
-use tezos_api::{environment::{OPERATION_LIST_LIST_HASH_EMPTY, TEZOS_ENV, TezosEnvironmentConfiguration}, ffi::{RpcMethod, RpcResponse}};
+use tezos_api::{environment::{OPERATION_LIST_LIST_HASH_EMPTY, TEZOS_ENV, TezosEnvironmentConfiguration}, ffi::{RpcMethod, ProtocolRpcResponse}};
 use tezos_api::ffi::{ApplyBlockRequest, ComputePathRequest, ComputePathResponse, InitProtocolContextResult, JsonRpcRequest, ProtocolJsonRpcRequest, TezosRuntimeConfiguration};
 use tezos_client::client;
 use tezos_messages::p2p::binary_message::{BinaryMessage, MessageHash};
@@ -54,9 +54,9 @@ fn init_test_protocol_context(dir_name: &str) -> (ChainId, BlockHeader, Protocol
     )
 }
 
-fn extract_body(r: RpcResponse) -> Result<String, failure::Error> {
+fn extract_body(r: ProtocolRpcResponse) -> Result<String, failure::Error> {
     match r {
-        RpcResponse::RPCOk(body) => Ok(body),
+        ProtocolRpcResponse::RPCOk(body) => Ok(body),
         other => Err(failure::err_msg(format!("Expecter RPCOk, instead got {:?}", other))),
     }
 }

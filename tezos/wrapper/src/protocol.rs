@@ -16,7 +16,7 @@ pub trait ProtocolApi {
     fn validate_operation(request: ValidateOperationRequest) -> Result<ValidateOperationResponse, ValidateOperationError>;
 
     /// Call protocol json rpc
-    fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> Result<RpcResponse, RpcError>;
+    fn call_protocol_json_rpc(request: ProtocolJsonRpcRequest) -> Result<ProtocolRpcResponse, ProtocolRpcError>;
 
     /// Call helpers_preapply_operations shell service
     fn helpers_preapply_operations(request: ProtocolJsonRpcRequest) -> Result<HelpersPreapplyResponse, HelpersPreapplyError>;

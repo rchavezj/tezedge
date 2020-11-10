@@ -7,7 +7,7 @@ use serde::Serialize;
 
 use crypto::hash::HashType;
 use shell::shell_channel::BlockApplied;
-use tezos_api::ffi::RpcError;
+use tezos_api::ffi::ProtocolRpcError;
 use tezos_messages::ts_to_rfc3339;
 use tezos_wrapper::service::{ProtocolError, ProtocolServiceError};
 
@@ -246,7 +246,7 @@ pub async fn preapply_block(req: Request<Body>, params: Params, _: Query, env: R
         Ok(resp) => result_to_json_response(Ok(resp), env.log()),
         Err(e) => {
             if let Some(err) = e.as_fail().downcast_ref::<ProtocolServiceError>() {
-                if let ProtocolServiceError::ProtocolError { reason: ProtocolError::ProtocolRpcError { reason: RpcError::FailedToCallProtocolRpc(message) } } = err {
+                if let ProtocolServiceError::ProtocolError { reason: ProtocolError::ProtocolRpcError { reason: ProtocolRpcError::FailedToCallProtocolRpc(message) } } = err {
                     return make_json_response(&ErrorMessage {
                         error_type: "ocaml".to_string(),
                         message: message.to_string(),
