@@ -480,7 +480,6 @@ impl ProtocolController {
 
     /// Call helpers_preapply_operations shell service
     pub fn helpers_preapply_operations(&self, request: ProtocolJsonRpcRequest) -> Result<HelpersPreapplyResponse, ProtocolServiceError> {
-        // TODO: helper for helpers_preapply
         self.call_helpers_preapply_internal(ProtocolMessage::HelpersPreapplyOperationsCall(request))
     }
 

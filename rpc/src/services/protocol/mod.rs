@@ -427,7 +427,7 @@ pub(crate) fn proto_get_contract_manager_key(
 fn handle_rpc_response(response: &RpcResponse) -> Result<serde_json::value::Value, failure::Error> {
     match response {
         RpcResponse::RPCOk(body) => Ok(serde_json::from_str(&body)?),
-        other => panic!("Unhandled resopnse: {:?}", other),
+        other => Err(failure::err_msg(format!("Got non-OK response from protocol-RPC service: {:?}", other))),
     }
 }
 
