@@ -111,6 +111,7 @@ steps:
     - cp ./light_node/etc/drone/assert_contains.sh /artifacts/ && chmod 755 /artifacts/assert_contains.sh
     - cp ./light_node/etc/drone/identities/* /artifacts/identities/
     - cp ./light_node/etc/tezedge/tezedge_drone.config /artifacts/tezedge/
+    - cp ./light_node/etc/tezedge/delphinet-patch-context.json /artifacts/tezedge/
 
 volumes:
   - name: build
@@ -791,7 +792,7 @@ steps:
       - rust_libs=$(echo "`rustup show home`/toolchains/`rustup show active-toolchain | tr " " "\n" | head -1`/lib")
       - export LD_LIBRARY_PATH="/artifacts/ffi:$rust_libs"
       - echo "LD_LIBRARY_PATH - $LD_LIBRARY_PATH"
-      - /artifacts/light-node --config-file "/artifacts/tezedge/tezedge_drone.config" --disable-bootstrap-lookup --peers $PEERS --peer-thresh-low=3 --peer-thresh-high=5 --identity-file "/artifacts/identities/identity_4.json" --network "$${NETWORK}" --protocol-runner "/tmp/tezedge_developer/protocol-runner" --p2p-port 19732
+      - /artifacts/light-node --config-file "/artifacts/tezedge/tezedge_drone.config" --disable-bootstrap-lookup --peers $PEERS --peer-thresh-low=3 --peer-thresh-high=5 --identity-file "/artifacts/identities/identity_4.json" --network "$${NETWORK}" --protocol-runner "/tmp/tezedge_developer/protocol-runner" --p2p-port 19732 --sandbox-patch-context-json-file /artifacts/tezedge/delphinet-patch-context.json
 
   - name: bootstrapping-tezedge
     image: simplestakingcom/tezos-node-bootstrap:latest
